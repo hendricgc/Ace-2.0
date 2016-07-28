@@ -32,7 +32,7 @@ public class Main {
 //       Menus menu = new Menus();
 //       menu.menuPrincipal();
         
-        // MESTRES DO INGRESS
+        // MESTRES DO POKÉMON
         JFrame jf = new Ace();
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setSize(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth(),
