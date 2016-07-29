@@ -146,7 +146,7 @@ public class Ace extends javax.swing.JFrame {
 
     private void cadastroEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroEquipesActionPerformed
         EquipeController equipeController = new EquipeController(new DAOFactory());
-        CadastroEquipe telaCadastroEquipe = new CadastroEquipe(equipeController);
+        CadastroEquipes telaCadastroEquipe = new CadastroEquipes(equipeController);
         telaCadastroEquipe.setSize(TELA_WIDTH, TELA_HEIGHT);
         painelPrincipal.removeAll();
         painelPrincipal.add(telaCadastroEquipe);

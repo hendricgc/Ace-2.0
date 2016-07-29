@@ -45,11 +45,14 @@ public class ConsultaAtletas extends javax.swing.JPanel {
             DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
             dtcr.setHorizontalAlignment(JLabel.LEFT);
             tabelaAtletas.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+            
 
             for(int i = 0; i < atletas.size(); i++){
+                String dataNascAtleta = DateToString.dateToString(atletas.get(i).getDataNasc());
+                String dataFinal = dataNascAtleta.substring(0, 2) + "/" + dataNascAtleta.substring(2, 4) + "/" + dataNascAtleta.substring(4, 8  );
                 dtm.addRow(new Object[] { atletas.get(i).getIdPessoa(),
                                             atletas.get(i).getNome(),
-                                            DateToString.dateToString(atletas.get(i).getDataNasc())
+                                            dataFinal
                                         });
             }
             tabelaAtletas.setAlignmentY(TOP_ALIGNMENT);

@@ -14,22 +14,29 @@ import javax.swing.border.Border;
  *
  * @author Hendric
  */
-public class CadastroEquipe extends javax.swing.JPanel {
+public class CadastroEquipes extends javax.swing.JPanel {
 
     /**
-     * Creates new form CadastroEquipe
+     * Creates new form CadastroEquipes
      */
     
-    private final Border bordaPadrao;
+    private Border bordaPadrao;
+    private boolean editando = false;
+    private Equipe a;
     private final EquipeController equipeController;
     
-    public CadastroEquipe(EquipeController equipeController) {
+    public CadastroEquipes(EquipeController equipeController) {
         this.equipeController = equipeController;
         initComponents();
         labelErro.setVisible(false);
-        bordaPadrao = campoNome.getBorder();
+        botaoEditar.setVisible(false);
     }
 
+    public CadastroEquipes(EquipeController equipeController, Equipe a) {
+        this.equipeController = equipeController;
+        this.a = a;
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,23 +48,25 @@ public class CadastroEquipe extends javax.swing.JPanel {
 
         campoCor1 = new javax.swing.JTextField();
         botaoSalvar = new javax.swing.JButton();
-        labelCor1 = new javax.swing.JLabel();
+        labelRG = new javax.swing.JLabel();
         labelErro = new javax.swing.JLabel();
-        labelCor2 = new javax.swing.JLabel();
+        labelCPF = new javax.swing.JLabel();
         campoFundacao = new javax.swing.JFormattedTextField();
         campoCor2 = new javax.swing.JTextField();
+        botaoEditar = new javax.swing.JButton();
         labelNascimento = new javax.swing.JLabel();
-        campoNome = new javax.swing.JTextField();
+        campoEquipe = new javax.swing.JTextField();
         labelNome = new javax.swing.JLabel();
 
         botaoSalvar.setText("Salvar");
+        botaoSalvar.setAlignmentY(0.0F);
         botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoSalvarActionPerformed(evt);
             }
         });
 
-        labelCor1.setText("Cor 1");
+        labelRG.setText("Cor 1");
 
         labelErro.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
         labelErro.setForeground(new java.awt.Color(255, 0, 0));
@@ -65,42 +74,49 @@ public class CadastroEquipe extends javax.swing.JPanel {
         labelErro.setFocusable(false);
         labelErro.setRequestFocusEnabled(false);
 
-        labelCor2.setText("Cor 2");
+        labelCPF.setText("Cor 2");
+
+        botaoEditar.setText("Editar");
+        botaoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarActionPerformed(evt);
+            }
+        });
 
         labelNascimento.setText("Ano de Fundação");
 
-        labelNome.setText("Nome");
+        labelNome.setText("Equipe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addGap(136, 136, 136)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelNascimento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelRG)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoCor1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelCPF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoCor2))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelNascimento)
+                        .addComponent(campoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelErro)
+                        .addGap(246, 246, 246)
+                        .addComponent(botaoEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelCor1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoCor1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelCor2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoCor2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(139, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelErro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoSalvar)
-                .addGap(143, 143, 143))
+                        .addComponent(botaoSalvar)))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,50 +124,70 @@ public class CadastroEquipe extends javax.swing.JPanel {
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoCor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelCor1)
-                    .addComponent(labelCor2)
-                    .addComponent(campoCor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelRG)
+                    .addComponent(labelCPF)
                     .addComponent(labelNascimento)
-                    .addComponent(campoFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(campoFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoCor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelErro)
-                    .addComponent(botaoSalvar))
-                .addContainerGap(259, Short.MAX_VALUE))
+                    .addComponent(botaoEditar)
+                    .addComponent(botaoSalvar)
+                    .addComponent(labelErro))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        Equipe a = new Equipe();
-        a.setNome(campoNome.getText());
+        a = new Equipe();
+        a.setNome(campoEquipe.getText());
+        a.setAnoFundacao(Integer.parseInt(campoFundacao.getText()));
         a.setCor1(campoCor1.getText());
         a.setCor2(campoCor2.getText());
-        a.setAnoFundacao(Integer.parseInt(campoFundacao.getText()));
         try {
-            if(equipeController.cadastrarEquipe(a))
-            System.out.println("Cadastrado com sucesso");
-            else
-            System.out.println("Erro");
+            if(!editando){
+                if(equipeController.cadastrarEquipe(a))
+                System.out.println("Cadastrado com sucesso");
+                else
+                System.out.println("Erro ao cadastrar atleta");
+            }
+            else{
+                //if(equipeController))
+                //System.out.println("Atualizado com sucesso");
+                //else
+                //System.out.println("Erro ao atualizar cadastro");
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
+    private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
+        editando = true;
+        campoEquipe.setEnabled(true);
+        campoCor2.setEnabled(true);
+        campoFundacao.setEnabled(true);
+        campoCor1.setEnabled(true);
+
+        botaoSalvar.setEnabled(true);
+    }//GEN-LAST:event_botaoEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoEditar;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField campoCor1;
     private javax.swing.JTextField campoCor2;
+    private javax.swing.JTextField campoEquipe;
     private javax.swing.JFormattedTextField campoFundacao;
-    private javax.swing.JTextField campoNome;
-    private javax.swing.JLabel labelCor1;
-    private javax.swing.JLabel labelCor2;
+    private javax.swing.JLabel labelCPF;
     private javax.swing.JLabel labelErro;
     private javax.swing.JLabel labelNascimento;
     private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelRG;
     // End of variables declaration//GEN-END:variables
 }
