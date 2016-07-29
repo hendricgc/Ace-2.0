@@ -10,8 +10,6 @@ import Model.Atleta;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

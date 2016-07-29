@@ -64,11 +64,11 @@ public class EquipeDAO {
     }
     
     public boolean removerEquipe(Equipe a) throws SQLException{
-        String sql_equipe = "DELETE FROM equipes WHERE nome = ?";
+        String sql_equipe = "DELETE FROM equipes WHERE id = ?";
         try{
             PreparedStatement ps = conn.prepareStatement(sql_equipe);
 
-            ps.setString(1, a.getNome());
+            ps.setInt(1, a.getIdTime());
 
             int result = ps.executeUpdate();
 

@@ -79,10 +79,10 @@ public class AtletaDAO {
     }
     
     public boolean removerAtleta(Atleta a) throws SQLException{
-        String sql_atleta = "DELETE FROM pessoa_atleta WHERE nome = ?";
+        String sql_atleta = "DELETE FROM pessoa_atleta WHERE id = ?";
         try{
             PreparedStatement ps = conn.prepareStatement(sql_atleta);
-            ps.setString(1, a.getNome());
+            ps.setInt(1, a.getIdPessoa());
             
             int result = ps.executeUpdate();
             
