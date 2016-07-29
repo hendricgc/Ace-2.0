@@ -12,8 +12,6 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
