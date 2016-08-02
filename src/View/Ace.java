@@ -47,6 +47,7 @@ public class Ace extends javax.swing.JFrame {
         cadastroEquipes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         consultaAtletas = new javax.swing.JMenuItem();
+        consultaEquipes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
@@ -100,6 +101,14 @@ public class Ace extends javax.swing.JFrame {
             }
         });
         jMenu3.add(consultaAtletas);
+
+        consultaEquipes.setText("Equipes");
+        consultaEquipes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultaEquipesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(consultaEquipes);
 
         jMenuBar1.add(jMenu3);
 
@@ -164,6 +173,10 @@ public class Ace extends javax.swing.JFrame {
         this.setTitle("Cadastro de Atletas");
     }//GEN-LAST:event_consultaAtletasActionPerformed
 
+    private void consultaEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaEquipesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_consultaEquipesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -204,6 +217,7 @@ public class Ace extends javax.swing.JFrame {
     private javax.swing.JMenuItem cadastroComissao;
     private javax.swing.JMenuItem cadastroEquipes;
     private javax.swing.JMenuItem consultaAtletas;
+    private javax.swing.JMenuItem consultaEquipes;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
