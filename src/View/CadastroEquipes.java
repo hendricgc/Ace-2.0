@@ -138,7 +138,7 @@ public class CadastroEquipes extends javax.swing.JPanel {
                     .addComponent(botaoEditar)
                     .addComponent(botaoSalvar)
                     .addComponent(labelErro))
-                .addContainerGap(547, Short.MAX_VALUE))
+                .addContainerGap(507, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

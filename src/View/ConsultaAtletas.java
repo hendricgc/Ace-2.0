@@ -26,6 +26,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     private final int TELA_WIDTH = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
     private final int TELA_HEIGHT = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
     private Atleta a;
+    LinkedList<Atleta> atletas;
     
     /**
      * Creates new form ConsultaAtletas
@@ -40,21 +41,14 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     
     public void listarTodosAtletas(){
         try{
-            LinkedList<Atleta> atletas = atletaController.consultarTodosAtletas();
+            atletas = atletaController.consultarTodosAtletas();
             DefaultTableModel dtm = (DefaultTableModel) tabelaAtletas.getModel();
             DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
             dtcr.setHorizontalAlignment(JLabel.LEFT);
             tabelaAtletas.getColumnModel().getColumn(0).setCellRenderer(dtcr);
             
-
-            for(int i = 0; i < atletas.size(); i++){
-                String dataNascAtleta = DateToString.dateToString(atletas.get(i).getDataNasc());
-                String dataFinal = dataNascAtleta.substring(0, 2) + "/" + dataNascAtleta.substring(2, 4) + "/" + dataNascAtleta.substring(4, 8  );
-                dtm.addRow(new Object[] { atletas.get(i).getIdPessoa(),
-                                            atletas.get(i).getNome(),
-                                            dataFinal
-                                        });
-            }
+            atualizarTabela(atletas);
+            
             tabelaAtletas.setAlignmentY(TOP_ALIGNMENT);
             tabelaAtletas.updateUI();
             
@@ -81,6 +75,22 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         this.updateUI();
     }
     
+    public void atualizarTabela(LinkedList<Atleta> atletas){
+        DefaultTableModel dtm = (DefaultTableModel) tabelaAtletas.getModel();
+        dtm.setRowCount(0);
+       
+        for(int i = 0; i < atletas.size(); i++){
+                String dataNascAtleta = DateToString.dateToString(atletas.get(i).getDataNasc());
+                String dataFinal = dataNascAtleta.substring(0, 2) + "/" + dataNascAtleta.substring(2, 4) + "/" + dataNascAtleta.substring(4, 8);
+                dtm.addRow(new Object[] { atletas.get(i).getIdPessoa(),
+                                            atletas.get(i).getNome(),
+                                            atletas.get(i).getPosicao(),
+                                            dataFinal
+                                        });
+            }
+    
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,19 +110,19 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         tabelaAtletas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        buscarNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        buscarCPF = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        buscarAltura = new javax.swing.JTextField();
+        radioMenorAltura = new javax.swing.JRadioButton();
+        radioMaiorAltura = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        buscarPeso = new javax.swing.JTextField();
+        radioMaiorPeso = new javax.swing.JRadioButton();
+        radioMenorPeso = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        buscarPosicao = new javax.swing.JComboBox<>();
 
         tabelaAtletas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,26 +159,43 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar"));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPanel1KeyReleased(evt);
+            }
+        });
 
         jLabel1.setText("Nome");
 
+        buscarNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarNomeKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("CPF");
+
+        buscarCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarCPFKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Altura");
 
-        jRadioButton1.setText("Menor");
+        radioMenorAltura.setText("Menor");
 
-        jRadioButton2.setText("Maior");
+        radioMaiorAltura.setText("Maior");
 
         jLabel4.setText("Peso");
 
-        jRadioButton3.setText("Maior");
+        radioMaiorPeso.setText("Maior");
 
-        jRadioButton4.setText("Menor");
+        radioMenorPeso.setText("Menor");
 
         jLabel5.setText("Posição");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ponteiro", "Oposto", "Levantador", "Central", "Líbero", " " }));
+        buscarPosicao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ponteiro", "Oposto", "Levantador", "Central", "Líbero" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,7 +208,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))
+                        .addComponent(buscarNome))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
@@ -192,20 +219,20 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                    .addComponent(jTextField4))
+                                    .addComponent(buscarAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                    .addComponent(buscarPeso))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton2)
+                                        .addComponent(radioMaiorAltura)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton1))
+                                        .addComponent(radioMenorAltura))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton3)
+                                        .addComponent(radioMaiorPeso)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton4))))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(radioMenorPeso))))
+                            .addComponent(buscarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscarPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -214,27 +241,27 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(buscarAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radioMenorAltura)
+                    .addComponent(radioMaiorAltura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(buscarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(radioMaiorPeso)
+                    .addComponent(radioMenorPeso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -254,38 +281,63 @@ public class ConsultaAtletas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void buscarNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarNomeKeyReleased
+        LinkedList<Atleta> atletaAux = new LinkedList<>();
+        String filtroNome = buscarNome.getText();
+        
+        for(int i = 0; i < atletas.size(); i++){
+            if(atletas.get(i).getNome().contains(filtroNome))
+                atletaAux.add(atletas.get(i));
+        }      
+        //atualizarTabela(atletaAux);
+    }//GEN-LAST:event_buscarNomeKeyReleased
+
+    private void buscarCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarCPFKeyReleased
+        LinkedList<Atleta> atletaAux = new LinkedList<>();
+        String filtroCPF = buscarNome.getText();
+        
+        for(int i = 0; i < atletas.size(); i++){
+            if(atletas.get(i).getNome().contains(filtroCPF))
+                atletaAux.add(atletas.get(i));
+        }      
+        //atualizarTabela(atletaAux);
+    }//GEN-LAST:event_buscarCPFKeyReleased
+    
+    private void jPanel1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyReleased
+        System.out.println("bob");
+    }//GEN-LAST:event_jPanel1KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField buscarAltura;
+    private javax.swing.JTextField buscarCPF;
+    private javax.swing.JTextField buscarNome;
+    private javax.swing.JTextField buscarPeso;
+    private javax.swing.JComboBox<String> buscarPosicao;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.ButtonGroup buttonGroup6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JRadioButton radioMaiorAltura;
+    private javax.swing.JRadioButton radioMaiorPeso;
+    private javax.swing.JRadioButton radioMenorAltura;
+    private javax.swing.JRadioButton radioMenorPeso;
     private javax.swing.JTable tabelaAtletas;
     // End of variables declaration//GEN-END:variables
 }

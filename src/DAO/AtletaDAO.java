@@ -95,7 +95,6 @@ public class AtletaDAO {
     }
     
     public LinkedList<Atleta> listarTodosAtletas() throws SQLException{
-        Atleta a = new Atleta();
         LinkedList<Atleta> result = new LinkedList<>();
         String sql_atleta = "SELECT * FROM pessoa_atleta";
         
@@ -103,6 +102,7 @@ public class AtletaDAO {
         ResultSet rs = ps.executeQuery();
         
         while(rs.next()){
+            Atleta a = new Atleta();
             a.setIdPessoa(rs.getInt("id"));
             a.setNome(rs.getString("nome"));
             a.setDataNasc(rs.getTimestamp("data_nasc"));
@@ -110,11 +110,12 @@ public class AtletaDAO {
             a.setCPF(rs.getString("cpf"));
             a.setAltura(rs.getDouble("altura"));
             a.setPeso(rs.getDouble("peso"));
-            a.setPosicao(rs.getString("Posicao"));
+            a.setPosicao(rs.getString("posicao"));
             
             result.add(a);
         }       
-        return result;        
+        return result;   
+        
     }
     
     public Atleta buscarAtletaID(int id) throws SQLException{

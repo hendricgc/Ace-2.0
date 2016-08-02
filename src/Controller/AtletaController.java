@@ -52,7 +52,7 @@ public class AtletaController extends Observable{
         if(atletas != null){
             setChanged();
             notifyObservers();
-            return atletas;     
+            return atletas;
         }
         return null;
     }

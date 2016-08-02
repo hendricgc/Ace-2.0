@@ -3,24 +3,25 @@ package Model;
 public class Ponto {
 
     private int idJogo;
-
-    private int idSet;
-
+    private int set;
+    private int numPonto;
     private int idPessoa;
+    private int idEquipe;
+    private String descPonto;
 
-    private int tipo;
 
-    private int idTimeContra;
-
-    public Ponto(int idJogo, int idSet, int idPessoa, int tipo, int idTimeContra) {
+    public Ponto(int idJogo, int set, int numPonto, int idPessoa, String tipo, int idEquipe) {
         this.idJogo = idJogo;
-        this.idSet = idSet;
+        this.set = set;
         this.idPessoa = idPessoa;
-        this.tipo = tipo;
-        this.idTimeContra = idTimeContra;
+        this.descPonto = tipo;
+        this.idEquipe = idEquipe;
+        this.numPonto = numPonto;
     }
+    
+    public Ponto() {}
 
-   public int getIdJogo() {
+    public int getIdJogo() {
         return idJogo;
     }
 
@@ -28,12 +29,12 @@ public class Ponto {
         this.idJogo = idJogo;
     }
 
-    public int getIdSet() {
-        return idSet;
+    public int getSet() {
+        return set;
     }
 
-    public void setIdSet(int idSet) {
-        this.idSet = idSet;
+    public void setSet(int set) {
+        this.set = set;
     }
 
     public int getIdPessoa() {
@@ -44,20 +45,27 @@ public class Ponto {
         this.idPessoa = idPessoa;
     }
 
-    public int getTipo() {
-        return tipo;
+    public String getDescPonto() {
+        return descPonto;
     }
 
-    public void setTipo(int Tipo) {
-        this.tipo = Tipo;
+    public void setDescPonto(String Tipo) {
+        this.descPonto = Tipo;
     }
 
-    public int getIdTimeContra() {
-        return idTimeContra;
+    public int getIdEquipe() {
+        return idEquipe;
     }
 
-    public void setIdTimeContra(int idTimeContra) {
-        this.idTimeContra = idTimeContra;
+    public void setIdEquipe(int idEquipe) {
+        this.idEquipe = idEquipe;
     }
 
+    public int getNumPonto() {
+        return numPonto;
+    }
+
+    public void setNumPonto(int numPonto) {
+        this.numPonto = numPonto;
+    } 
 }

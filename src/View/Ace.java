@@ -51,7 +51,6 @@ public class Ace extends javax.swing.JFrame {
         consultaEquipes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -68,7 +67,7 @@ public class Ace extends javax.swing.JFrame {
         );
         painelPrincipalLayout.setVerticalGroup(
             painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 698, Short.MAX_VALUE)
+            .addGap(0, 658, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastro");
@@ -128,9 +127,6 @@ public class Ace extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem1);
-
-        jMenuItem3.setText("Criar Jogos");
-        jMenu4.add(jMenuItem3);
 
         jMenuItem4.setText("Registrar Jogos");
         jMenu4.add(jMenuItem4);
@@ -254,7 +250,6 @@ public class Ace extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel painelPrincipal;

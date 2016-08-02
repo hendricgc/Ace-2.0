@@ -273,12 +273,13 @@ public class CadastroAtletas extends javax.swing.JPanel {
                     .addComponent(botaoSalvar)
                     .addComponent(botaoEditar)
                     .addComponent(labelErro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(308, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        if(campoAltura.getText().isEmpty()) campoAltura.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        //if(campoAltura.getText().isEmpty()) campoAltura.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        a = new Atleta();
         a.setNome(campoNome.getText());
         a.setDataNasc(new Date(campoNascimento.getText()));
         a.setCPF(campoCPF.getText());
