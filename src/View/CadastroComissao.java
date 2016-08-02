@@ -151,7 +151,7 @@ public class CadastroComissao extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSalvar)
                     .addComponent(labelErro))
-                .addContainerGap(216, Short.MAX_VALUE))
+                .addContainerGap(516, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

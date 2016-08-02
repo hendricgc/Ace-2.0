@@ -116,7 +116,7 @@ public class CadastroEquipes extends javax.swing.JPanel {
                         .addComponent(botaoEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoSalvar)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(536, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +138,7 @@ public class CadastroEquipes extends javax.swing.JPanel {
                     .addComponent(botaoEditar)
                     .addComponent(botaoSalvar)
                     .addComponent(labelErro))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

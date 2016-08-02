@@ -2,7 +2,6 @@ package Model;
 
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Campeonato {
 
@@ -13,13 +12,15 @@ public class Campeonato {
     private LinkedList<Jogo> jogos = new LinkedList();
     private boolean ativo;
     private LinkedList<ClassificacaoEquipe> classificacao = new LinkedList();
+    private int anoCampeonato;
 
-    public Campeonato(int id_campeonato, String Nome, String Organizador, LinkedList<Equipe> Times) {
+    public Campeonato(int id_campeonato, String Nome, String Organizador, LinkedList<Equipe> Times, int anoCampeonato) {
         this.idCampeonato = id_campeonato;
         this.nome = Nome;
         this.organizador = Organizador;
         this.equipes = Times;
         this.ativo = true;
+        this.anoCampeonato = anoCampeonato;
     }
     
     
@@ -81,6 +82,14 @@ public class Campeonato {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+    
+    public int getAnoCampeonato() {
+        return anoCampeonato;
+    }
+
+    public void setAnoCampeonato(int anoCampeonato) {
+        this.anoCampeonato = anoCampeonato;
     }
         
     @Override
