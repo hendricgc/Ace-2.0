@@ -159,7 +159,7 @@ public class RelatoriosEquipes extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel7.setText("Que tipo de filtros colocar aqui?");
+        jLabel7.setText("Que tipo de filtros colocar aqui??");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
