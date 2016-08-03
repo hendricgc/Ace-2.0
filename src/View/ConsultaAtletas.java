@@ -91,6 +91,25 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     
     }
     
+    public void atualizarFiltros(){
+        LinkedList<Atleta> atletaAux = new LinkedList<>();
+        for(int i = 0; i < atletas.size(); i++){
+            Atleta aux = atletas.get(i);
+            if(buscarPosicao.getItemAt(buscarPosicao.getSelectedIndex()).equals("Todas")){
+                if(aux.getNome().startsWith(buscarNome.getText()) && aux.getCPF().startsWith(buscarCPF.getText()))
+                    atletaAux.add(aux);
+            }
+            else{
+                if(aux.getNome().startsWith(buscarNome.getText()) && aux.getCPF().startsWith(buscarCPF.getText()) &&
+                    aux.getPosicao().equals(buscarPosicao.getItemAt(buscarPosicao.getSelectedIndex())))
+                atletaAux.add(aux);
+            }
+                
+                
+        }
+            atualizarTabela(atletaAux);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,19 +128,17 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaAtletas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
         buscarNome = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        labelCPF = new javax.swing.JLabel();
         buscarCPF = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        labelAltura = new javax.swing.JLabel();
         buscarAltura = new javax.swing.JTextField();
         radioMenorAltura = new javax.swing.JRadioButton();
         radioMaiorAltura = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
+        labelNascidoAte = new javax.swing.JLabel();
         buscarPeso = new javax.swing.JTextField();
-        radioMaiorPeso = new javax.swing.JRadioButton();
-        radioMenorPeso = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
+        labelPosicao = new javax.swing.JLabel();
         buscarPosicao = new javax.swing.JComboBox<>();
 
         tabelaAtletas.setModel(new javax.swing.table.DefaultTableModel(
@@ -159,13 +176,8 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar"));
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jPanel1KeyReleased(evt);
-            }
-        });
 
-        jLabel1.setText("Nome");
+        labelNome.setText("Nome");
 
         buscarNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -173,7 +185,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("CPF");
+        labelCPF.setText("CPF");
 
         buscarCPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -181,21 +193,22 @@ public class ConsultaAtletas extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Altura");
+        labelAltura.setText("Altura");
 
         radioMenorAltura.setText("Menor");
 
         radioMaiorAltura.setText("Maior");
 
-        jLabel4.setText("Peso");
+        labelNascidoAte.setText("Nascido até");
 
-        radioMaiorPeso.setText("Maior");
+        labelPosicao.setText("Posição");
 
-        radioMenorPeso.setText("Menor");
-
-        jLabel5.setText("Posição");
-
-        buscarPosicao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ponteiro", "Oposto", "Levantador", "Central", "Líbero" }));
+        buscarPosicao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Ponteiro", "Oposto", "Levantador", "Central", "Líbero" }));
+        buscarPosicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarPosicaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -205,16 +218,11 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buscarNome))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
+                            .addComponent(labelCPF)
+                            .addComponent(labelNascidoAte)
+                            .addComponent(labelAltura)
+                            .addComponent(labelPosicao))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -222,17 +230,17 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                                     .addComponent(buscarAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(buscarPeso))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(radioMaiorAltura)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(radioMenorAltura))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(radioMaiorPeso)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(radioMenorPeso))))
+                                .addComponent(radioMaiorAltura)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioMenorAltura))
                             .addComponent(buscarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscarPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(buscarPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 377, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(labelNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buscarNome)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -240,27 +248,25 @@ public class ConsultaAtletas extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(labelNome)
                     .addComponent(buscarNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(labelCPF)
                     .addComponent(buscarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(labelAltura)
                     .addComponent(buscarAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(radioMenorAltura)
                     .addComponent(radioMaiorAltura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(buscarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioMaiorPeso)
-                    .addComponent(radioMenorPeso))
+                    .addComponent(labelNascidoAte)
+                    .addComponent(buscarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(labelPosicao)
                     .addComponent(buscarPosicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -289,31 +295,17 @@ public class ConsultaAtletas extends javax.swing.JPanel {
 
     
     private void buscarNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarNomeKeyReleased
-        LinkedList<Atleta> atletaAux = new LinkedList<>();
-        String filtroNome = buscarNome.getText();
-        
-        for(int i = 0; i < atletas.size(); i++){
-            if(atletas.get(i).getNome().contains(filtroNome))
-                atletaAux.add(atletas.get(i));
-        }      
-        //atualizarTabela(atletaAux);
+        atualizarFiltros();
     }//GEN-LAST:event_buscarNomeKeyReleased
 
     private void buscarCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarCPFKeyReleased
-        LinkedList<Atleta> atletaAux = new LinkedList<>();
-        String filtroCPF = buscarNome.getText();
-        
-        for(int i = 0; i < atletas.size(); i++){
-            if(atletas.get(i).getNome().contains(filtroCPF))
-                atletaAux.add(atletas.get(i));
-        }      
-        //atualizarTabela(atletaAux);
+        atualizarFiltros();  
     }//GEN-LAST:event_buscarCPFKeyReleased
-    
-    private void jPanel1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyReleased
-        System.out.println("bob");
-    }//GEN-LAST:event_jPanel1KeyReleased
 
+    private void buscarPosicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPosicaoActionPerformed
+        atualizarFiltros();
+    }//GEN-LAST:event_buscarPosicaoActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscarAltura;
@@ -327,17 +319,15 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.ButtonGroup buttonGroup6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelAltura;
+    private javax.swing.JLabel labelCPF;
+    private javax.swing.JLabel labelNascidoAte;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelPosicao;
     private javax.swing.JRadioButton radioMaiorAltura;
-    private javax.swing.JRadioButton radioMaiorPeso;
     private javax.swing.JRadioButton radioMenorAltura;
-    private javax.swing.JRadioButton radioMenorPeso;
     private javax.swing.JTable tabelaAtletas;
     // End of variables declaration//GEN-END:variables
 }

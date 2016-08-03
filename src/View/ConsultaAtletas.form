@@ -109,9 +109,6 @@
           </Border>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jPanel1KeyReleased"/>
-      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -119,18 +116,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buscarNome" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelCPF" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelNascidoAte" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelAltura" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelPosicao" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -140,22 +131,20 @@
                                       <Component id="buscarPeso" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="radioMaiorAltura" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="radioMenorAltura" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="radioMaiorPeso" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="radioMenorPeso" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="radioMaiorAltura" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="radioMenorAltura" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="buscarCPF" min="-2" pref="181" max="-2" attributes="0"/>
                               <Component id="buscarPosicao" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="377" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="labelNome" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buscarNome" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -167,31 +156,29 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buscarNome" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buscarCPF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelAltura" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buscarAltura" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="radioMenorAltura" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="radioMaiorAltura" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelNascidoAte" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buscarPeso" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioMaiorPeso" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioMenorPeso" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelPosicao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buscarPosicao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -200,7 +187,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="labelNome">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
@@ -210,7 +197,7 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscarNomeKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="labelCPF">
           <Properties>
             <Property name="text" type="java.lang.String" value="CPF"/>
           </Properties>
@@ -220,7 +207,7 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscarCPFKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="labelAltura">
           <Properties>
             <Property name="text" type="java.lang.String" value="Altura"/>
           </Properties>
@@ -237,24 +224,14 @@
             <Property name="text" type="java.lang.String" value="Maior"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="labelNascidoAte">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Peso"/>
+            <Property name="text" type="java.lang.String" value="Nascido at&#xe9;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="buscarPeso">
         </Component>
-        <Component class="javax.swing.JRadioButton" name="radioMaiorPeso">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Maior"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="radioMenorPeso">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Menor"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
+        <Component class="javax.swing.JLabel" name="labelPosicao">
           <Properties>
             <Property name="text" type="java.lang.String" value="Posi&#xe7;&#xe3;o"/>
           </Properties>
@@ -262,15 +239,19 @@
         <Component class="javax.swing.JComboBox" name="buscarPosicao">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Ponteiro"/>
-                <StringItem index="1" value="Oposto"/>
-                <StringItem index="2" value="Levantador"/>
-                <StringItem index="3" value="Central"/>
-                <StringItem index="4" value="L&#xed;bero"/>
+              <StringArray count="6">
+                <StringItem index="0" value="Todas"/>
+                <StringItem index="1" value="Ponteiro"/>
+                <StringItem index="2" value="Oposto"/>
+                <StringItem index="3" value="Levantador"/>
+                <StringItem index="4" value="Central"/>
+                <StringItem index="5" value="L&#xed;bero"/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarPosicaoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

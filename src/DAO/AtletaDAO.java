@@ -96,7 +96,7 @@ public class AtletaDAO {
     
     public LinkedList<Atleta> listarTodosAtletas() throws SQLException{
         LinkedList<Atleta> result = new LinkedList<>();
-        String sql_atleta = "SELECT * FROM pessoa_atleta";
+        String sql_atleta = "SELECT * FROM pessoa_atleta ORDER BY nome ASC";
         
         PreparedStatement ps = conn.prepareStatement(sql_atleta);
         ResultSet rs = ps.executeQuery();
