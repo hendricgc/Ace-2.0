@@ -45,10 +45,13 @@ public class MontarEquipeController {
     /**
      * 
      */
-    public boolean inserirComissaoTime(Comissao comissao, Equipe e){
-        
-        
-        return false;
+    public boolean inserirComissaoTime(Comissao comissao, Equipe e) throws SQLException{
+            if(comissao != null && e != null){
+            if(dao.getComissaoDAO().inserirComissao(e)){
+                    return true;
+            }
+            }
+            return false;
     }
     
     
