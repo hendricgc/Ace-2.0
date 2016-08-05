@@ -14,16 +14,25 @@ import java.util.Observable;
 
 /**
  *
- * @author Hendric
+ * @author  Hendric, Murillo
  */
 public class EquipeController extends Observable{
     
     protected DAOFactory dao = null;
-    
+    /**
+     * 
+     * @param dao 
+     */
     public EquipeController(DAOFactory dao){
         this.dao = dao;
     }
     
+    /**
+     * 
+     * @param a
+     * @return retorna true em caso de sucesso no cadastro da equipe e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean cadastrarEquipe(Equipe a) throws SQLException{
         if(a != null){
             if(dao.getEquipeDAO().inserirEquipe(a)){
@@ -35,6 +44,11 @@ public class EquipeController extends Observable{
         return false;
     }
     
+    /**
+     * 
+     * @returnretorna uma lsita com todas as equipes cadastradas
+     * @throws SQLException 
+     */
     public LinkedList<Equipe> listarTodasEquipes() throws SQLException{
         
         LinkedList<Equipe> equipes;
@@ -48,6 +62,12 @@ public class EquipeController extends Observable{
         return null;
     }
 
+    /**
+     * 
+     * @param nomeEquipe
+     * @return retorna uma Equipe
+     * @throws SQLException 
+     */
     public Equipe procurarEquipeNome(String nomeEquipe) throws SQLException {
         
         Equipe e = dao.getEquipeDAO().procurarNomeEquipe(nomeEquipe);
@@ -59,6 +79,12 @@ public class EquipeController extends Observable{
         return null;
     }
     
+    /**
+     * 
+     * @param e
+     * @return retorna uma lista com os atletas de uma equipe
+     * @throws SQLException 
+     */
     public LinkedList<Atleta> getAtletasEquipe(Equipe e) throws SQLException {
         
         LinkedList<Atleta> atletas;
@@ -71,6 +97,11 @@ public class EquipeController extends Observable{
         return null;
     }
     
+    /**
+     * 
+     * @return retorna uma lista com os atletas nao associados a uma equipe
+     * @throws SQLException 
+     */
     public LinkedList<Atleta> getAtletasSemEquipe() throws SQLException {
         
         LinkedList<Atleta> atletas;
@@ -83,6 +114,12 @@ public class EquipeController extends Observable{
         return null;
     }
     
+    /**
+     * 
+     * @param e
+     * @return retorna a quantidade de atletas em uma equipe
+     * @throws SQLException 
+     */
     public int getQuantAletasEquipe(Equipe e) throws SQLException {
         
         return dao.getAtletaEquipeDAO().getQuantAtletasEquipe(e);

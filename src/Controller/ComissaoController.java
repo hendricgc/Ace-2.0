@@ -12,16 +12,24 @@ import java.util.Observable;
 
 /**
  *
- * @author Hendric
+ * @author  Hendric, Murillo
  */
 public class ComissaoController extends Observable{
     
     protected DAOFactory dao = null;
-    
+    /**
+     * 
+     * @param dao 
+     */
     public ComissaoController(DAOFactory dao){
         this.dao = dao;
     }
-    
+    /**
+     * 
+     * @param a
+     * @return retorna true em caso de sucesso no cadstro de comissao e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean cadastrarComissao(Comissao a) throws SQLException{
         if(a != null){
             if(dao.getComissaoDAO().inserirComissao(a)){

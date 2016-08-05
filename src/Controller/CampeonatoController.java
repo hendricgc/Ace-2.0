@@ -12,16 +12,25 @@ import java.util.Observable;
 
 /**
  *
- * @author Hendric
+ * @author  Hendric, Murillo
  */
 public class CampeonatoController extends Observable{
     
     protected DAOFactory dao = null;
-    
+    /**
+     * 
+     * @param dao 
+     */
     public CampeonatoController(DAOFactory dao){
         this.dao = dao;
     }
     
+    /**
+     * 
+     * @param campeonato
+     * @return retorna true se o campeonato foi cadastrado com sucesso e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean cadastrarCampeonato(Campeonato campeonato) throws SQLException{
         if(campeonato != null){
             if(dao.getCampeonatoDAO().criarCampeonato(campeonato)){

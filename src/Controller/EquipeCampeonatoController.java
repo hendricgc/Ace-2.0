@@ -13,16 +13,25 @@ import java.util.Observable;
 
 /**
  *
- * @author Hendric
+ * @author  Hendric, Murillo
  */
 public class EquipeCampeonatoController extends Observable{
     
     protected DAOFactory dao = null;
-    
+    /**
+     * 
+     * @param dao 
+     */
     public EquipeCampeonatoController(DAOFactory dao){
         this.dao = dao;
     }
-    
+    /**
+     * 
+     * @param campeonato
+     * @param equipe
+     * @return  retorna true caso a equipe seja adicionada no campeonato e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean inserirEquipeCampeonato(Campeonato campeonato, Equipe equipe) throws SQLException{
         if(campeonato != null){
             if(dao.getEquipeCampeonatoDAO().inserirEquipeCampeonato(campeonato, equipe)){

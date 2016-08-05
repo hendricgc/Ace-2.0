@@ -13,7 +13,7 @@ import java.util.Observable;
 
 /**
  *
- * @author Hendric
+ * @author  Hendric, Murillo
  */
 public class AtletaController extends Observable{
     
@@ -22,7 +22,12 @@ public class AtletaController extends Observable{
     public AtletaController(DAOFactory dao){
         this.dao = dao;
     }
-    
+    /**
+     * 
+     * @param a
+     * @return retorna true se cadastroucom sucesso e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean cadastrarAtleta(Atleta a) throws SQLException{
         if(a != null){
             if(dao.getAtletaDAO().inserirAtleta(a)){
@@ -34,6 +39,12 @@ public class AtletaController extends Observable{
         return false;
     }
     
+    /**
+     * 
+     * @param a
+     * @return retorna true em caso de sucesso na atualizaçao do atleta e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean atualizarAtleta(Atleta a) throws SQLException{
         if(a != null){
             if(dao.getAtletaDAO().atualizarAtleta(a)){
@@ -45,6 +56,11 @@ public class AtletaController extends Observable{
         return false;
     }
     
+    /**
+     * 
+     * @return retora uma lista com todos os atletas
+     * @throws SQLException 
+     */
     public LinkedList<Atleta> consultarTodosAtletas() throws SQLException{
 
         LinkedList<Atleta> atletas;
@@ -57,6 +73,11 @@ public class AtletaController extends Observable{
         return null;
     }
     
+    /**
+     * 
+     * @param id
+     * @return retorna um objeto atleta 
+     */
     public Atleta buscarAtletaID(int id){
         if(id > 0){
             try {
