@@ -30,6 +30,8 @@ public class Jogo {
         this.timeVisitante = Time_2;
         this.idCampeonato = id_campeonato;
     }
+
+    public Jogo() {}
     
     /**
      * 

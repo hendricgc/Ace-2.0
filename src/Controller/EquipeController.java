@@ -21,7 +21,7 @@ public class EquipeController extends Observable{
     protected DAOFactory dao = null;
     /**
      * 
-     * @param dao 
+     * @param dao ponteiro pro banco de dados
      */
     public EquipeController(DAOFactory dao){
         this.dao = dao;
@@ -46,7 +46,7 @@ public class EquipeController extends Observable{
     
     /**
      * 
-     * @returnretorna uma lsita com todas as equipes cadastradas
+     * @returnretorna uma lista com todas as equipes cadastradas
      * @throws SQLException 
      */
     public LinkedList<Equipe> listarTodasEquipes() throws SQLException{
@@ -121,7 +121,8 @@ public class EquipeController extends Observable{
      * @throws SQLException 
      */
     public int getQuantAletasEquipe(Equipe e) throws SQLException {
-        
-        return dao.getAtletaEquipeDAO().getQuantAtletasEquipe(e);
+        if(e != null)
+            return dao.getAtletaEquipeDAO().getQuantAtletasEquipe(e);
+        return -1;
     }
 }

@@ -327,8 +327,9 @@ public class CadastroCampeonatos extends javax.swing.JPanel {
             campeonato.setEquipes(equipes);
             campeonatoController.cadastrarCampeonato(campeonato);
             
-            for(int i = 0; i < equipesInscritas.size(); i++)
+            for(int i = 0; i < equipesInscritas.size(); i++){
                 equipeCampeonatoController.inserirEquipeCampeonato(campeonato, equipesInscritas.get(i));
+            }
         } catch (SQLException ex) {
             ex.getStackTrace();
         }
@@ -343,6 +344,7 @@ public class CadastroCampeonatos extends javax.swing.JPanel {
                 dtmi.addRow((Vector) dtm.getDataVector().elementAt(i));
                 dtm.removeRow(i);
                 equipesInscritas.add(equipes.get(i));
+                equipes.remove(i);
             }               
         }
     }//GEN-LAST:event_botaoAdicionarActionPerformed
@@ -352,6 +354,7 @@ public class CadastroCampeonatos extends javax.swing.JPanel {
             if(tabelaInscritos.isRowSelected(i)){
                 dtm.addRow((Vector) dtmi.getDataVector().elementAt(i));
                 dtmi.removeRow(i);
+                equipes.add(equipesInscritas.get(i));
                 equipesInscritas.remove(equipesInscritas.get(i));
             }
         }

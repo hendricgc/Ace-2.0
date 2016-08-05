@@ -40,9 +40,10 @@ public class EquipeCampeonatoDAO {
             ps.setString(1, campeonato.getNome());
             ps.setString(2, campeonato.getOrganizador());
             ps.setInt(3, campeonato.getAnoCampeonato());
+            
 
             ResultSet rs = ps.executeQuery();
-            if(rs.first())  id_campeonato = rs.getInt("id");
+            if(rs.next())  id_campeonato = rs.getInt("id");
             else            return false;
             
             ps.close();
@@ -55,7 +56,7 @@ public class EquipeCampeonatoDAO {
             ps.setInt(4, equipe.getAnoFundacao());
             
             rs = ps.executeQuery();
-            if(rs.first())  id_equipe = rs.getInt("id");
+            if(rs.next())  id_equipe = rs.getInt("id");
             else            return false;
             
             ps.close();
@@ -87,10 +88,12 @@ public class EquipeCampeonatoDAO {
     public LinkedList<Equipe> listarEquipesCampeonato(Campeonato campeonato) throws SQLException{
         
         LinkedList<Equipe> equipes = new LinkedList<>();
-        String sql_equipe = "SELECT * FROM equipes WHERE equipes.id = equipe_campeonato.id AND equipe_campeonato.id = ? ORDER BY equipes.nome ASC";
-        
+        String sql_equipe = "SELECT * FROM (equipes INNER JOIN equipe_campeonato ON equipes.id = equipe_campeonato.id_equipe) WHERE id_campeonato = ? ORDER BY nome ASC";
+
         PreparedStatement ps = conn.prepareStatement(sql_equipe);
+        ps.setInt(1, campeonato.getIdCampeonato());
         ResultSet rs = ps.executeQuery();
+        System.out.println(ps.toString());
         
         while(rs.next()){
             Equipe equipe = new Equipe();
@@ -99,9 +102,22 @@ public class EquipeCampeonatoDAO {
             equipe.setCor1(rs.getString("cor1"));
             equipe.setCor2(rs.getString("cor2"));
             equipe.setAnoFundacao(rs.getInt("ano_fundacao"));
-        }
-                
+            System.out.println(equipe);
+            
+            equipes.add(equipe);
+        }    
+        return equipes;
+    }
+    
+    public int quantEquipesCampeonato(Campeonato camp) throws SQLException{
+        String sql_equipe_campeonato = "SELECT COUNT(id_equipe) FROM equipe_campeonato";
         
-        return null;
+        PreparedStatement ps = conn.prepareStatement(sql_equipe_campeonato);
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next())
+            return rs.getInt(1);
+        
+        return 0;
     }
 }

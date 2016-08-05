@@ -11,6 +11,7 @@ import Controller.CampeonatoController;
 import Controller.ComissaoController;
 import Controller.EquipeCampeonatoController;
 import Controller.EquipeController;
+import Controller.JogoController;
 import Factory.DAOFactory;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JPanel;
@@ -57,11 +58,8 @@ public class Ace extends javax.swing.JFrame {
         consultaEquipes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         menuCriarCampeonato = new javax.swing.JMenuItem();
+        menuCriarJogos = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -148,23 +146,18 @@ public class Ace extends javax.swing.JFrame {
         });
         jMenu4.add(menuCriarCampeonato);
 
+        menuCriarJogos.setText("Criar Jogos");
+        menuCriarJogos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCriarJogosActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuCriarJogos);
+
         jMenuItem4.setText("Registrar Jogos");
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
-
-        jMenu5.setText("Relatorios");
-
-        jMenuItem7.setText("Campeonatos");
-        jMenu5.add(jMenuItem7);
-
-        jMenuItem8.setText("Equipes");
-        jMenu5.add(jMenuItem8);
-
-        jMenuItem10.setText("Jogadores");
-        jMenu5.add(jMenuItem10);
-
-        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -255,6 +248,22 @@ public class Ace extends javax.swing.JFrame {
         this.setTitle("Montar Equipes");
     }//GEN-LAST:event_menuMontarEquipesActionPerformed
 
+    private void menuCriarJogosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCriarJogosActionPerformed
+        DAOFactory dao = new DAOFactory();
+        
+        CampeonatoController campeonatoController = new CampeonatoController(dao);
+        EquipeController equipeController = new EquipeController(dao);
+        JogoController jogoController = new JogoController(dao);
+        EquipeCampeonatoController equipeCampeonatoController = new EquipeCampeonatoController(dao);
+        
+        CriarJogos telaCriarJogos =  new CriarJogos(jogoController, equipeController, campeonatoController, equipeCampeonatoController);
+        telaCriarJogos.setSize(1280, 680);
+        painelPrincipal.removeAll();
+        painelPrincipal.add(telaCriarJogos);
+        painelPrincipal.updateUI();
+        this.setTitle("Criar jogos");
+    }//GEN-LAST:event_menuCriarJogosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -298,17 +307,14 @@ public class Ace extends javax.swing.JFrame {
     private javax.swing.JMenuItem consultaEquipes;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuCriarCampeonato;
+    private javax.swing.JMenuItem menuCriarJogos;
     private javax.swing.JMenuItem menuMontarEquipes;
     private javax.swing.JPanel painelPrincipal;
     // End of variables declaration//GEN-END:variables

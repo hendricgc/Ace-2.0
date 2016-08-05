@@ -11,6 +11,7 @@ import DAO.CampeonatoDAO;
 import DAO.ComissaoDAO;
 import DAO.EquipeCampeonatoDAO;
 import DAO.EquipeDAO;
+import DAO.JogoCampeonatoDAO;
 
 /**
  *
@@ -24,6 +25,7 @@ public class DAOFactory {
     private static AtletaEquipeDAO atletaEquipeDAO;
     private static CampeonatoDAO campeonatoDAO;
     private static EquipeCampeonatoDAO equipeCampeonatoDAO;
+    private static JogoCampeonatoDAO jogoCampeonatoDAO;
        
     public AtletaDAO getAtletaDAO(){
         if(atletaDAO == null)
@@ -59,5 +61,11 @@ public class DAOFactory {
         if(equipeCampeonatoDAO == null)
             equipeCampeonatoDAO = new EquipeCampeonatoDAO();
         return equipeCampeonatoDAO;  
+    }
+    
+    public JogoCampeonatoDAO getJogoCampeonatoDAO(){
+        if(jogoCampeonatoDAO == null)
+            jogoCampeonatoDAO = new JogoCampeonatoDAO();
+        return jogoCampeonatoDAO;  
     }
 }

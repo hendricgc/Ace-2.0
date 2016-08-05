@@ -8,6 +8,7 @@ package Controller;
 import Factory.DAOFactory;
 import Model.Campeonato;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Observable;
 
 /**
@@ -41,4 +42,14 @@ public class CampeonatoController extends Observable{
         }
         return false;
     }
+    
+    public LinkedList<Campeonato> listarTodosCampeonatos() throws SQLException{
+        LinkedList<Campeonato> campeonatos;
+        
+        campeonatos = dao.getCampeonatoDAO().listarTodosCampeonatos();
+        if(campeonatos != null)
+            return campeonatos;
+        
+        return null;
+    }         
 }

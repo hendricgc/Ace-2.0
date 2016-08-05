@@ -9,6 +9,7 @@ import Factory.DAOFactory;
 import Model.Campeonato;
 import Model.Equipe;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Observable;
 
 /**
@@ -41,5 +42,19 @@ public class EquipeCampeonatoController extends Observable{
             }         
         }
         return false;
+    }
+    
+    public int quantEquipesCampeonato(Campeonato campeonato) throws SQLException{
+        if(campeonato != null){
+            return dao.getEquipeCampeonatoDAO().quantEquipesCampeonato(campeonato);
+        }
+        return -1;
+    }
+    
+    public LinkedList<Equipe> listarEquipesCampeonato(Campeonato campeonato) throws SQLException{
+        if(campeonato != null){
+            return dao.getEquipeCampeonatoDAO().listarEquipesCampeonato(campeonato);
+        }
+        return new LinkedList<>();
     }
 }
