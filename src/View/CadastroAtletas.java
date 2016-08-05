@@ -279,22 +279,17 @@ public class CadastroAtletas extends javax.swing.JPanel {
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         //if(campoAltura.getText().isEmpty()) campoAltura.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-        a = new Atleta();
-        a.setNome(campoNome.getText());
-        a.setDataNasc(new Date(campoNascimento.getText()));
-        a.setCPF(campoCPF.getText());
-        a.setRG(campoRG.getText());
-        a.setAltura(Double.valueOf(campoAltura.getText()));
-        a.setPeso(Double.valueOf(campoPeso.getText()));
-        a.setPosicao(campoPosicao.getText());
         try {
             if(!editando){
+                a = new Atleta();
+                a = setAtleta(a);
                 if(atletaController.cadastrarAtleta(a))
                     System.out.println("Cadastrado com sucesso");
                 else
                     System.out.println("Erro ao cadastrar atleta");
             }
             else{
+                a = setAtleta(a);
                 if(atletaController.atualizarAtleta(a))
                     System.out.println("Atualizado com sucesso");
                 else
@@ -318,6 +313,18 @@ public class CadastroAtletas extends javax.swing.JPanel {
         botaoSalvar.setEnabled(true);
     }//GEN-LAST:event_botaoEditarActionPerformed
 
+    public Atleta setAtleta(Atleta a){
+        
+        a.setNome(campoNome.getText());
+        a.setDataNasc(new Date(campoNascimento.getText()));
+        a.setCPF(campoCPF.getText());
+        a.setRG(campoRG.getText());
+        a.setAltura(Double.valueOf(campoAltura.getText()));
+        a.setPeso(Double.valueOf(campoPeso.getText()));
+        a.setPosicao(campoPosicao.getText());
+        
+        return a;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoEditar;

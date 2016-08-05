@@ -10,7 +10,6 @@ public class Campeonato {
     private String organizador;
     private LinkedList<Equipe> equipes;
     private LinkedList<Jogo> jogos = new LinkedList();
-    private boolean ativo;
     private LinkedList<ClassificacaoEquipe> classificacao = new LinkedList();
     private int anoCampeonato;
 
@@ -19,7 +18,6 @@ public class Campeonato {
         this.nome = Nome;
         this.organizador = Organizador;
         this.equipes = Times;
-        this.ativo = true;
         this.anoCampeonato = anoCampeonato;
     }
     
@@ -75,14 +73,6 @@ public class Campeonato {
     public int getIndiceClassificacao(Equipe e){
         return this.getEquipes().indexOf(e);
     }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
     
     public int getAnoCampeonato() {
         return anoCampeonato;
@@ -94,7 +84,7 @@ public class Campeonato {
         
     @Override
     public String toString() {
-        return String.format("%d  - %s %30s %15s", idCampeonato, nome, organizador, ativo);
+        return String.format("%d  - %s %30s", idCampeonato, nome, organizador);
     }
 
     public int getNovoIdJogo() {

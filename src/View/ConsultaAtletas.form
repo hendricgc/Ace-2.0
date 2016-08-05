@@ -128,7 +128,7 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="buscarAltura" pref="80" max="32767" attributes="0"/>
-                                      <Component id="buscarPeso" max="32767" attributes="0"/>
+                                      <Component id="buscarNasc" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="radioMaiorAltura" min="-2" max="-2" attributes="0"/>
@@ -174,7 +174,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labelNascidoAte" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buscarPeso" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buscarNasc" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -213,23 +213,35 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="buscarAltura">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscarAlturaKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioMenorAltura">
           <Properties>
             <Property name="text" type="java.lang.String" value="Menor"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioMenorAlturaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioMaiorAltura">
           <Properties>
             <Property name="text" type="java.lang.String" value="Maior"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioMaiorAlturaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelNascidoAte">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nascido at&#xe9;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="buscarPeso">
+        <Component class="javax.swing.JTextField" name="buscarNasc">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="buscarNascKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelPosicao">
           <Properties>

@@ -35,6 +35,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     public ConsultaAtletas(AtletaController atletaController) {
         this.atletaController = atletaController;
         initComponents();
+        radioMaiorAltura.setSelected(true);
         listarTodosAtletas();
         
     }
@@ -96,13 +97,16 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         for(int i = 0; i < atletas.size(); i++){
             Atleta aux = atletas.get(i);
             if(buscarPosicao.getItemAt(buscarPosicao.getSelectedIndex()).equals("Todas")){
-                if(aux.getNome().startsWith(buscarNome.getText()) && aux.getCPF().startsWith(buscarCPF.getText()))
-                    atletaAux.add(aux);
+                if(aux.getNome().startsWith(buscarNome.getText()) && aux.getCPF().startsWith(buscarCPF.getText()) &&
+                            tratarFiltroData(aux) && tratarFiltroAltura(aux))
+                        atletaAux.add(aux);
             }
             else{
                 if(aux.getNome().startsWith(buscarNome.getText()) && aux.getCPF().startsWith(buscarCPF.getText()) &&
-                    aux.getPosicao().equals(buscarPosicao.getItemAt(buscarPosicao.getSelectedIndex())))
-                atletaAux.add(aux);
+                        aux.getPosicao().equals(buscarPosicao.getItemAt(buscarPosicao.getSelectedIndex())) &&
+                        tratarFiltroData(aux) && tratarFiltroAltura(aux))
+                            
+                    atletaAux.add(aux);
             }
                 
                 
@@ -110,6 +114,24 @@ public class ConsultaAtletas extends javax.swing.JPanel {
             atualizarTabela(atletaAux);
     }
     
+    public boolean tratarFiltroData(Atleta a){
+        
+        if(buscarNasc.getText().isEmpty()) return true;
+        else                               return (a.getDataNasc().getYear()+1900) <= Integer.parseInt(buscarNasc.getText());
+    }
+    
+    public boolean tratarFiltroAltura(Atleta a){
+        if(buscarAltura.getText().isEmpty())    return true;
+        else{
+            if(radioMaiorAltura.isSelected()){
+                return a.getAltura() >= Double.parseDouble(buscarAltura.getText());
+            }
+            else{
+                return a.getAltura() <= Double.parseDouble(buscarAltura.getText());
+            }
+        }
+    }
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,7 +159,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
         radioMenorAltura = new javax.swing.JRadioButton();
         radioMaiorAltura = new javax.swing.JRadioButton();
         labelNascidoAte = new javax.swing.JLabel();
-        buscarPeso = new javax.swing.JTextField();
+        buscarNasc = new javax.swing.JTextField();
         labelPosicao = new javax.swing.JLabel();
         buscarPosicao = new javax.swing.JComboBox<>();
 
@@ -195,11 +217,33 @@ public class ConsultaAtletas extends javax.swing.JPanel {
 
         labelAltura.setText("Altura");
 
+        buscarAltura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarAlturaKeyReleased(evt);
+            }
+        });
+
         radioMenorAltura.setText("Menor");
+        radioMenorAltura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioMenorAlturaActionPerformed(evt);
+            }
+        });
 
         radioMaiorAltura.setText("Maior");
+        radioMaiorAltura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioMaiorAlturaActionPerformed(evt);
+            }
+        });
 
         labelNascidoAte.setText("Nascido até");
+
+        buscarNasc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarNascKeyReleased(evt);
+            }
+        });
 
         labelPosicao.setText("Posição");
 
@@ -228,7 +272,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(buscarAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                    .addComponent(buscarPeso))
+                                    .addComponent(buscarNasc))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(radioMaiorAltura)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,7 +307,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNascidoAte)
-                    .addComponent(buscarPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPosicao)
@@ -305,13 +349,33 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     private void buscarPosicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPosicaoActionPerformed
         atualizarFiltros();
     }//GEN-LAST:event_buscarPosicaoActionPerformed
+
+    private void buscarAlturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarAlturaKeyReleased
+        atualizarFiltros();
+    }//GEN-LAST:event_buscarAlturaKeyReleased
+
+    private void buscarNascKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarNascKeyReleased
+        atualizarFiltros();
+    }//GEN-LAST:event_buscarNascKeyReleased
+
+    private void radioMaiorAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioMaiorAlturaActionPerformed
+        radioMenorAltura.setSelected(false);
+        radioMaiorAltura.setSelected(true);
+        atualizarFiltros();
+    }//GEN-LAST:event_radioMaiorAlturaActionPerformed
+
+    private void radioMenorAlturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioMenorAlturaActionPerformed
+        radioMaiorAltura.setSelected(false);
+        radioMenorAltura.setSelected(true);
+        atualizarFiltros();
+    }//GEN-LAST:event_radioMenorAlturaActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscarAltura;
     private javax.swing.JTextField buscarCPF;
+    private javax.swing.JTextField buscarNasc;
     private javax.swing.JTextField buscarNome;
-    private javax.swing.JTextField buscarPeso;
     private javax.swing.JComboBox<String> buscarPosicao;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
