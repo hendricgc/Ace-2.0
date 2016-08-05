@@ -11,6 +11,7 @@ import Controller.EquipeController;
 import Controller.MontarEquipeController;
 import Model.Atleta;
 import Model.Equipe;
+import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -35,7 +36,7 @@ public class MontarEquipes extends javax.swing.JPanel {
     private final ComissaoController comissaoController;
     private LinkedList<Equipe> equipes = new LinkedList<>();
     private LinkedList<Atleta> atletasSemEquipe = new LinkedList<>();
-    private final LinkedList<Atleta> atletasInserir = new LinkedList<>();
+    private LinkedList<Atleta> atletasInserir = new LinkedList<>();
     private final DefaultTableModel dtm; 
     private final DefaultTableModel dtmi;
     
@@ -49,6 +50,7 @@ public class MontarEquipes extends javax.swing.JPanel {
         initComponents();
         botaoIncluir.setEnabled(false);
         botaoExcluir.setEnabled(false);
+        botaoSalvar.setEnabled(false);
         dtm = (DefaultTableModel) tabelaInserir.getModel();
         dtmi = (DefaultTableModel) tabelaInserido.getModel();
         carregarEquipes();
@@ -260,6 +262,7 @@ public class MontarEquipes extends javax.swing.JPanel {
     }
     
     public void listarIntegrantesSemEquipe(){   
+        dtm.setRowCount(0);
         try {
             atletasSemEquipe = equipeController.getAtletasSemEquipe();
             for(int i = 0; i < atletasSemEquipe.size(); i++){
@@ -271,33 +274,60 @@ public class MontarEquipes extends javax.swing.JPanel {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
+        tabelaInserido.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaInserir.getSelectionModel().clearSelection();
+            }
+        });
     }
     
     public void listarIntegrantesEquipe(Equipe e){
-        LinkedList<Atleta> atletas;
+        dtmi.setRowCount(0);
         try {
-            atletas = equipeController.getAtletasEquipe(e);
-            for(int i = 0; i < atletas.size(); i++){
+            atletasInserir = equipeController.getAtletasEquipe(e);
+            for(int i = 0; i < atletasInserir.size(); i++){
                 dtmi.addRow(new Object[]{
-                    atletas.get(i).getNome(),
-                    atletas.get(i).getPosicao()
+                    atletasInserir.get(i).getNome(),
+                    atletasInserir.get(i).getPosicao()
                 });
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
+            tabelaInserir.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaInserido.getSelectionModel().clearSelection();
+            }
+        });
     }
     
     private void botaoIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIncluirActionPerformed
         
-        int numeroCamisa = Integer.parseInt(JOptionPane.showInputDialog(this, "Digite o número da camisa do jogador"));
-        for(int i = 0; i < tabelaInserir.getRowCount(); i++){
-            if(tabelaInserir.isRowSelected(i)){
-                dtmi.addRow((Vector) dtm.getDataVector().elementAt(i));
-                dtm.removeRow(i);
-                atletasInserir.add(atletasSemEquipe.get(i));
-                atletasInserir.get(i).setNumeroCamisa(numeroCamisa);
+        try {
+            int numeroCamisa = Integer.parseInt(JOptionPane.showInputDialog(this, "Digite o número da camisa do jogador"));
+            for(int i = 0; i < tabelaInserir.getRowCount(); i++){
+                if(tabelaInserir.isRowSelected(i)){
+                    dtmi.addRow((Vector) dtm.getDataVector().elementAt(i));
+                    dtm.removeRow(i);
+                    atletasSemEquipe.get(i).setNumeroCamisa(numeroCamisa);
+                    atletasInserir.add(atletasSemEquipe.get(i));
+                    atletasSemEquipe.remove(atletasSemEquipe.get(i));
+                    try {
+                        montarEquipeController.inserirAtletaEquipe(atletasInserir.get(i),
+                                equipeController.procurarEquipeNome(caixaEquipe.getSelectedItem().toString()));
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }               
+            listarIntegrantesEquipe(equipeController.procurarEquipeNome(caixaEquipe.getSelectedItem().toString()));
+            listarIntegrantesSemEquipe();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_botaoIncluirActionPerformed
 
@@ -307,8 +337,20 @@ public class MontarEquipes extends javax.swing.JPanel {
             if(tabelaInserido.isRowSelected(i)){
                 dtm.addRow((Vector) dtmi.getDataVector().elementAt(i));
                 dtmi.removeRow(i);
+                try {
+                montarEquipeController.removerAtletaEquipe(atletasInserir.get(i));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+                atletasSemEquipe.add(atletasInserir.get(i));
                 atletasInserir.remove(atletasInserir.get(i));
             }               
+        }
+        try{
+            listarIntegrantesEquipe(equipeController.procurarEquipeNome(caixaEquipe.getSelectedItem().toString()));
+            listarIntegrantesSemEquipe();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
@@ -317,6 +359,7 @@ public class MontarEquipes extends javax.swing.JPanel {
         if(!caixaEquipe.getSelectedItem().toString().equals("Selecionar uma equipe")){
             botaoIncluir.setEnabled(true);
             botaoExcluir.setEnabled(true);
+            botaoSalvar.setEnabled(true);
             try {
                 String nomeEquipe = caixaEquipe.getSelectedItem().toString();
                 Equipe e = equipeController.procurarEquipeNome(nomeEquipe);
@@ -328,19 +371,14 @@ public class MontarEquipes extends javax.swing.JPanel {
         else{
             botaoIncluir.setEnabled(false);
             botaoExcluir.setEnabled(false);
+            botaoSalvar.setEnabled(false);
         }
     }//GEN-LAST:event_caixaEquipeActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        for(int i = 0; i < atletasInserir.size(); i++){
-            try {
-                montarEquipeController.inserirAtletaEquipe(atletasInserir.get(i), 
-                        equipeController.procurarEquipeNome(caixaEquipe.getSelectedItem().toString()));
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
         JOptionPane.showMessageDialog(this, "Time montado com sucesso");
+        this.removeAll();
+        this.updateUI();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
 
