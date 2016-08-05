@@ -13,16 +13,26 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Hendric
+ * @author  Hendric, Murillo
  */
 public class MontarEquipeController {
 
     protected DAOFactory dao = null;
-    
+    /**
+     * 
+     * @param dao 
+     */
     public MontarEquipeController(DAOFactory dao) {
         this.dao = dao;
     }
     
+    /**
+     * 
+     * @param a
+     * @param e
+     * @return retorna true se o atleta fo iassociado a equipe com sucesso e false em caso de falha
+     * @throws SQLException 
+     */
     public boolean inserirAtletaEquipe(Atleta a, Equipe e) throws SQLException{
             if(a != null && e != null){
             if(dao.getAtletaEquipeDAO().inserirAtletaEquipe(a, e)){
@@ -32,6 +42,9 @@ public class MontarEquipeController {
         return false;       
     }
     
+    /**
+     * 
+     */
     public boolean inserirComissaoTime(Comissao comissao, Equipe e){
         
         
