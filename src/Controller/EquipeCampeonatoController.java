@@ -7,6 +7,7 @@ package Controller;
 
 import Factory.DAOFactory;
 import Model.Campeonato;
+import Model.Equipe;
 import java.sql.SQLException;
 import java.util.Observable;
 
@@ -14,17 +15,17 @@ import java.util.Observable;
  *
  * @author Hendric
  */
-public class CampeonatoController extends Observable{
+public class EquipeCampeonatoController extends Observable{
     
     protected DAOFactory dao = null;
     
-    public CampeonatoController(DAOFactory dao){
+    public EquipeCampeonatoController(DAOFactory dao){
         this.dao = dao;
     }
     
-    public boolean cadastrarCampeonato(Campeonato campeonato) throws SQLException{
+    public boolean inserirEquipeCampeonato(Campeonato campeonato, Equipe equipe) throws SQLException{
         if(campeonato != null){
-            if(dao.getCampeonatoDAO().criarCampeonato(campeonato)){
+            if(dao.getEquipeCampeonatoDAO().inserirEquipeCampeonato(campeonato, equipe)){
                 setChanged();
                 notifyObservers();
                 return true;

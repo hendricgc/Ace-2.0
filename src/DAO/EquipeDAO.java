@@ -9,7 +9,9 @@ import Factory.ConnectionFactory;
 import Model.Equipe;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  *
@@ -78,5 +80,25 @@ public class EquipeDAO {
             ex.getStackTrace();
         }
         return false;
+    }
+    
+    public LinkedList<Equipe> listarTodasEquipes() throws SQLException{
+        LinkedList<Equipe> equipes = new LinkedList();
+        String sql_equipe = "SELECT * FROM equipes ORDER BY nome ASC";
+        
+        PreparedStatement ps = conn.prepareStatement(sql_equipe);
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next()){
+            Equipe equipe = new Equipe();
+            equipe.setIdTime(rs.getInt("id"));
+            equipe.setNome(rs.getString("nome"));
+            equipe.setCor1(rs.getString("cor1"));
+            equipe.setCor2(rs.getString("cor2"));
+            equipe.setAnoFundacao(rs.getInt("ano_fundacao"));
+            
+            equipes.add(equipe);
+        }
+        return equipes;
     }
 }

@@ -8,6 +8,7 @@ package Controller;
 import Factory.DAOFactory;
 import Model.Equipe;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Observable;
 
 /**
@@ -21,6 +22,7 @@ public class EquipeController extends Observable{
     public EquipeController(DAOFactory dao){
         this.dao = dao;
     }
+    
     public boolean cadastrarEquipe(Equipe a) throws SQLException{
         if(a != null){
             if(dao.getEquipeDAO().inserirEquipe(a)){
@@ -30,5 +32,18 @@ public class EquipeController extends Observable{
             return true;
         }
         return false;
+    }
+    
+    public LinkedList<Equipe> listarTodasEquipes() throws SQLException{
+        
+        LinkedList<Equipe> equipes;
+        equipes = dao.getEquipeDAO().listarTodasEquipes();
+        
+        if(equipes != null){
+            setChanged();
+            notifyObservers();
+            return equipes;
+        }
+        return null;
     }
 }

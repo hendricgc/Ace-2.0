@@ -6,7 +6,9 @@
 package View;
 
 import Controller.AtletaController;
+import Controller.CampeonatoController;
 import Controller.ComissaoController;
+import Controller.EquipeCampeonatoController;
 import Controller.EquipeController;
 import Factory.DAOFactory;
 import java.awt.GraphicsEnvironment;
@@ -222,7 +224,17 @@ public class Ace extends javax.swing.JFrame {
     }//GEN-LAST:event_consultaEquipesActionPerformed
 
     private void menuCriarCampeonatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCriarCampeonatoActionPerformed
-        // TODO add your handling code here:
+        DAOFactory dao = new DAOFactory();
+        CampeonatoController campeonatoController = new CampeonatoController(dao);
+        EquipeController equipeController = new EquipeController(dao);
+        EquipeCampeonatoController equipeCampeonatoController = new EquipeCampeonatoController(dao);
+        CadastroCampeonatos telaCadastroCampeonatos = new CadastroCampeonatos(campeonatoController, equipeController, equipeCampeonatoController);
+        telaCadastroCampeonatos.setSize(TELA_WIDTH, TELA_HEIGHT);
+        painelPrincipal.removeAll();
+        painelPrincipal.add(telaCadastroCampeonatos);
+        painelPrincipal.updateUI();
+        this.setTitle("Criar Campeonato");
+        
     }//GEN-LAST:event_menuCriarCampeonatoActionPerformed
 
     /**

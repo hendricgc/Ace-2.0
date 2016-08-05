@@ -26,7 +26,7 @@ public class ConsultaAtletas extends javax.swing.JPanel {
     private final int TELA_WIDTH = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
     private final int TELA_HEIGHT = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
     private Atleta a;
-    LinkedList<Atleta> atletas;
+    private LinkedList<Atleta> atletas;
     
     /**
      * Creates new form ConsultaAtletas

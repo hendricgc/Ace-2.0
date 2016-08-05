@@ -7,7 +7,9 @@ package Factory;
 
 import DAO.AtletaDAO;
 import DAO.AtletaEquipeDAO;
+import DAO.CampeonatoDAO;
 import DAO.ComissaoDAO;
+import DAO.EquipeCampeonatoDAO;
 import DAO.EquipeDAO;
 
 /**
@@ -20,6 +22,8 @@ public class DAOFactory {
     private static ComissaoDAO comissaoDAO;
     private static EquipeDAO equipeDAO;
     private static AtletaEquipeDAO atletaEquipeDAO;
+    private static CampeonatoDAO campeonatoDAO;
+    private static EquipeCampeonatoDAO equipeCampeonatoDAO;
        
     public AtletaDAO getAtletaDAO(){
         if(atletaDAO == null)
@@ -43,5 +47,17 @@ public class DAOFactory {
         if(atletaEquipeDAO == null)
             atletaEquipeDAO = new AtletaEquipeDAO();
         return atletaEquipeDAO;        
+    }
+    
+    public CampeonatoDAO getCampeonatoDAO(){
+        if(campeonatoDAO == null)
+            campeonatoDAO= new CampeonatoDAO();
+        return campeonatoDAO;        
+    }
+    
+    public EquipeCampeonatoDAO getEquipeCampeonatoDAO(){
+        if(equipeCampeonatoDAO == null)
+            equipeCampeonatoDAO = new EquipeCampeonatoDAO();
+        return equipeCampeonatoDAO;  
     }
 }
