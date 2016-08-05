@@ -87,7 +87,7 @@ public class EquipeCampeonatoDAO {
     public LinkedList<Equipe> listarEquipesCampeonato(Campeonato campeonato) throws SQLException{
         
         LinkedList<Equipe> equipes = new LinkedList<>();
-        String sql_equipe = "SELECT * FROM equipes WHERE equipes.id = equipe_campeonato.id AND equipe_campeonato.id = ?";
+        String sql_equipe = "SELECT * FROM equipes WHERE equipes.id = equipe_campeonato.id AND equipe_campeonato.id = ? ORDER BY equipes.nome ASC";
         
         PreparedStatement ps = conn.prepareStatement(sql_equipe);
         ResultSet rs = ps.executeQuery();

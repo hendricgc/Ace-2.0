@@ -9,14 +9,18 @@ import Controller.CampeonatoController;
 import Controller.EquipeCampeonatoController;
 import Controller.EquipeController;
 import Converter.DateToString;
+import Model.Campeonato;
 import Model.Equipe;
 import static java.awt.Component.TOP_ALIGNMENT;
 import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,17 +34,22 @@ public class CadastroCampeonatos extends javax.swing.JPanel {
      * Creates new form CadastroCampeonatos
      */
     
-    private CampeonatoController campeonatoController;
-    private EquipeCampeonatoController equipeCampeonatoController;
-    private EquipeController equipeController;
+    private final CampeonatoController campeonatoController;
+    private final EquipeCampeonatoController equipeCampeonatoController;
+    private final EquipeController equipeController;
     private LinkedList<Equipe> equipes;
+    private final LinkedList<Equipe> equipesInscritas = new LinkedList<>();
     private Equipe equipe;
+    private final DefaultTableModel dtm; 
+    private final DefaultTableModel dtmi;
     
     public CadastroCampeonatos(CampeonatoController campeonatoController, EquipeController equipeController, EquipeCampeonatoController equipeCampeonatoController) {
         this.campeonatoController = campeonatoController;
         this.equipeController = equipeController;
         this.equipeCampeonatoController = equipeCampeonatoController;
         initComponents();
+        dtmi = (DefaultTableModel) tabelaInscritos.getModel();
+        dtm = (DefaultTableModel) tabelaInscrever.getModel();
         listarEquipes();
     }
 
@@ -258,12 +267,31 @@ public class CadastroCampeonatos extends javax.swing.JPanel {
         try {
             equipes = equipeController.listarTodasEquipes();
             
-            DefaultTableModel dtm = (DefaultTableModel) tabelaInscrever.getModel();
             DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
             dtcr.setHorizontalAlignment(JLabel.LEFT);
             tabelaInscrever.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+            tabelaInscrever.getColumnModel().getColumn(1).setCellRenderer(dtcr);
+            tabelaInscrever.getColumnModel().getColumn(2).setCellRenderer(dtcr);
+            
+            tabelaInscritos.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+            tabelaInscritos.getColumnModel().getColumn(1).setCellRenderer(dtcr);
+            tabelaInscritos.getColumnModel().getColumn(2).setCellRenderer(dtcr);
             
             atualizarTabelaInscrever(equipes);
+            
+            tabelaInscrever.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    tabelaInscritos.getSelectionModel().clearSelection();
+                }
+            });
+            
+            tabelaInscritos.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    tabelaInscrever.getSelectionModel().clearSelection();
+                }
+            });
             
             tabelaInscrever.updateUI();
         } catch (SQLException ex) {
@@ -272,27 +300,61 @@ public class CadastroCampeonatos extends javax.swing.JPanel {
     }
     
     public void atualizarTabelaInscrever(LinkedList<Equipe> equipes){
-        DefaultTableModel dtm = (DefaultTableModel) tabelaInscrever.getModel();
         dtm.setRowCount(0);
        
         for(int i = 0; i < equipes.size(); i++){
+            try {
                 dtm.addRow(new Object[] { equipes.get(i).getNome(),
-                                            equipes.get(i).getAnoFundacao(),
-                                            equipes.get(i).getAtletas().size(),
-                                        });
-            } 
+                    equipes.get(i).getAnoFundacao(),
+                    equipeController.getQuantAletasEquipe(equipes.get(i)),
+                });
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastroCampeonatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
     }
     
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        
+        if(equipesInscritas.size() < 2){
+            JOptionPane.showMessageDialog(this, "Insira mais equipes");
+            return;
+        }     
+        try {
+            Campeonato campeonato = new Campeonato();
+            campeonato.setNome(campoNome.getText());
+            campeonato.setOrganizador(campoOrganizador.getText());
+            campeonato.setAnoCampeonato(Integer.parseInt(campoTemporada.getText()));
+            campeonato.setEquipes(equipes);
+            campeonatoController.cadastrarCampeonato(campeonato);
+            
+            for(int i = 0; i < equipesInscritas.size(); i++)
+                equipeCampeonatoController.inserirEquipeCampeonato(campeonato, equipesInscritas.get(i));
+        } catch (SQLException ex) {
+            ex.getStackTrace();
+        }
+        JOptionPane.showMessageDialog(this, "Campeonato criado com sucesso");
+        this.removeAll();
     }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        // TODO add your handling code here:
+        
+        for(int i = 0; i < tabelaInscrever.getRowCount(); i++){
+            if(tabelaInscrever.isRowSelected(i)){
+                dtmi.addRow((Vector) dtm.getDataVector().elementAt(i));
+                dtm.removeRow(i);
+                equipesInscritas.add(equipes.get(i));
+            }               
+        }
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
-        // TODO add your handling code here:
+        for(int i = 0; i < tabelaInscritos.getRowCount(); i++){
+            if(tabelaInscritos.isRowSelected(i)){
+                dtm.addRow((Vector) dtmi.getDataVector().elementAt(i));
+                dtmi.removeRow(i);
+                equipesInscritas.remove(equipesInscritas.get(i));
+            }
+        }
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
 

@@ -101,4 +101,25 @@ public class EquipeDAO {
         }
         return equipes;
     }
+    
+    public Equipe procurarNomeEquipe(String nomeEquipe) throws SQLException{
+        String sql_equipe = "SELECT * FROM equipes WHERE nome = ?";
+
+        PreparedStatement ps = conn.prepareStatement(sql_equipe);
+        ps.setString(1, nomeEquipe);
+            
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()){
+            Equipe equipe = new Equipe();
+            equipe.setIdTime(rs.getInt("id"));
+            equipe.setNome(rs.getString("nome"));
+            equipe.setCor1(rs.getString("cor1"));
+            equipe.setCor2(rs.getString("cor2"));
+            equipe.setAnoFundacao(rs.getInt("ano_fundacao"));
+            
+            return equipe;
+        }
+        return null;
+    }
 }
