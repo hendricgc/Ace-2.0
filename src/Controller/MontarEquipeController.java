@@ -38,5 +38,10 @@ public class MontarEquipeController {
         return false;
     }
     
+    public boolean removerAtletaEquipe(Atleta a) throws SQLException{
+        
+        return dao.getAtletaEquipeDAO().removerAtletaEquipe(a);
+    }
+    
     
 }
