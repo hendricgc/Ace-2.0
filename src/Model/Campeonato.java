@@ -20,6 +20,8 @@ public class Campeonato {
         this.equipes = Times;
         this.anoCampeonato = anoCampeonato;
     }
+
+    public Campeonato(){}
     
     
     public int getIdCampeonato() {

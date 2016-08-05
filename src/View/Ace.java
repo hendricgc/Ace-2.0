@@ -6,6 +6,7 @@
 package View;
 
 import Controller.AtletaController;
+import Controller.MontarEquipeController;
 import Controller.CampeonatoController;
 import Controller.ComissaoController;
 import Controller.EquipeCampeonatoController;
@@ -50,18 +51,17 @@ public class Ace extends javax.swing.JFrame {
         cadastroAtleta = new javax.swing.JMenuItem();
         cadastroComissao = new javax.swing.JMenuItem();
         cadastroEquipes = new javax.swing.JMenuItem();
+        menuMontarEquipes = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         consultaAtletas = new javax.swing.JMenuItem();
         consultaEquipes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         menuCriarCampeonato = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -108,6 +108,14 @@ public class Ace extends javax.swing.JFrame {
         });
         menuCadastro.add(cadastroEquipes);
 
+        menuMontarEquipes.setText("Montar Equipes");
+        menuMontarEquipes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuMontarEquipesActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuMontarEquipes);
+
         jMenuBar1.add(menuCadastro);
 
         jMenu3.setText("Consulta");
@@ -143,9 +151,6 @@ public class Ace extends javax.swing.JFrame {
         jMenuItem4.setText("Registrar Jogos");
         jMenu4.add(jMenuItem4);
 
-        jMenuItem5.setText("Classificação");
-        jMenu4.add(jMenuItem5);
-
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Relatorios");
@@ -160,7 +165,6 @@ public class Ace extends javax.swing.JFrame {
         jMenu5.add(jMenuItem10);
 
         jMenuBar1.add(jMenu5);
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -237,6 +241,20 @@ public class Ace extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuCriarCampeonatoActionPerformed
 
+    private void menuMontarEquipesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMontarEquipesActionPerformed
+        DAOFactory dao = new DAOFactory();
+        AtletaController atletaController = new AtletaController(dao);
+        MontarEquipeController montarEquipeController = new MontarEquipeController(dao);
+        ComissaoController comissaoController = new ComissaoController(dao);
+        EquipeController equipeController = new EquipeController(dao);
+        MontarEquipes montarEquipes = new MontarEquipes(montarEquipeController, equipeController, atletaController, comissaoController);
+        montarEquipes.setSize(1280, 680);
+        painelPrincipal.removeAll();
+        painelPrincipal.add(montarEquipes);
+        painelPrincipal.updateUI();
+        this.setTitle("Montar Equipes");
+    }//GEN-LAST:event_menuMontarEquipesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -278,7 +296,6 @@ public class Ace extends javax.swing.JFrame {
     private javax.swing.JMenuItem cadastroEquipes;
     private javax.swing.JMenuItem consultaAtletas;
     private javax.swing.JMenuItem consultaEquipes;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -287,12 +304,12 @@ public class Ace extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenuItem menuCriarCampeonato;
+    private javax.swing.JMenuItem menuMontarEquipes;
     private javax.swing.JPanel painelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

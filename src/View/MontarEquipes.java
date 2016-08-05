@@ -5,6 +5,20 @@
  */
 package View;
 
+import Controller.AtletaController;
+import Controller.ComissaoController;
+import Controller.EquipeController;
+import Controller.MontarEquipeController;
+import Model.Atleta;
+import Model.Equipe;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Hendric
@@ -14,8 +28,32 @@ public class MontarEquipes extends javax.swing.JPanel {
     /**
      * Creates new form MontarTimes
      */
-    public MontarEquipes() {
+    
+    private final MontarEquipeController montarEquipeController;
+    private final EquipeController equipeController;
+    private final AtletaController atletaController;
+    private final ComissaoController comissaoController;
+    private LinkedList<Equipe> equipes = new LinkedList<>();
+    private LinkedList<Atleta> atletasSemEquipe = new LinkedList<>();
+    private final LinkedList<Atleta> atletasInserir = new LinkedList<>();
+    private final DefaultTableModel dtm; 
+    private final DefaultTableModel dtmi;
+    
+    public MontarEquipes(MontarEquipeController mec, EquipeController ec, AtletaController ac, ComissaoController cc)
+    {
+        this.montarEquipeController = mec;
+        this.atletaController = ac;
+        this.equipeController = ec;
+        this.comissaoController = cc;
+        
         initComponents();
+        botaoIncluir.setEnabled(false);
+        botaoExcluir.setEnabled(false);
+        dtm = (DefaultTableModel) tabelaInserir.getModel();
+        dtmi = (DefaultTableModel) tabelaInserido.getModel();
+        carregarEquipes();
+        listarIntegrantesSemEquipe();
+
     }
 
     /**
@@ -34,11 +72,17 @@ public class MontarEquipes extends javax.swing.JPanel {
         tabelaInserir = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaInserido = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelInserir = new javax.swing.JLabel();
+        labelInseridos = new javax.swing.JLabel();
         botaoIncluir = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botaoSalvar = new javax.swing.JButton();
+
+        caixaEquipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caixaEquipeActionPerformed(evt);
+            }
+        });
 
         labelSelecionar.setText("Selecione uma equipe:");
 
@@ -47,12 +91,12 @@ public class MontarEquipes extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(labelSelecionar))
-                    .addComponent(caixaEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(labelSelecionar)
+                .addContainerGap(1052, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(caixaEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,10 +110,7 @@ public class MontarEquipes extends javax.swing.JPanel {
 
         tabelaInserir.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome", "Função"
@@ -99,10 +140,7 @@ public class MontarEquipes extends javax.swing.JPanel {
 
         tabelaInserido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome", "Função"
@@ -130,9 +168,9 @@ public class MontarEquipes extends javax.swing.JPanel {
             tabelaInserido.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jLabel1.setText("Integrantes a inserir");
+        labelInserir.setText("Integrantes a inserir");
 
-        jLabel2.setText("Integrantes inseridos");
+        labelInseridos.setText("Integrantes inseridos");
 
         botaoIncluir.setText(">>");
         botaoIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +186,12 @@ public class MontarEquipes extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Salvar");
+        botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -159,22 +202,22 @@ public class MontarEquipes extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1101, 1101, 1101)
-                        .addComponent(jButton1))
+                        .addComponent(botaoSalvar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(botaoIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(40, 40, 40)
+                            .addGap(41, 41, 41)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(180, 180, 180)
-                            .addComponent(jLabel1)
+                            .addComponent(labelInserir)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2)
+                            .addComponent(labelInseridos)
                             .addGap(180, 180, 180))))
                 .addGap(41, 41, 41))
         );
@@ -185,44 +228,132 @@ public class MontarEquipes extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelInserir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelInseridos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane4)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
                         .addComponent(botaoIncluir)
                         .addGap(18, 18, 18)
-                        .addComponent(botaoExcluir)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(botaoExcluir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5))))
+                .addGap(18, 18, 18)
+                .addComponent(botaoSalvar)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void carregarEquipes(){
+        
+        try {
+            equipes = equipeController.listarTodasEquipes();
+            caixaEquipe.addItem("Selecionar uma equipe");
+            for(int i = 0; i < equipes.size(); i++)
+                caixaEquipe.addItem(equipes.get(i).getNome());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void listarIntegrantesSemEquipe(){   
+        try {
+            atletasSemEquipe = equipeController.getAtletasSemEquipe();
+            for(int i = 0; i < atletasSemEquipe.size(); i++){
+                dtm.addRow(new Object[] {
+                    atletasSemEquipe.get(i).getNome(),
+                    atletasSemEquipe.get(i).getPosicao()
+                });
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void listarIntegrantesEquipe(Equipe e){
+        LinkedList<Atleta> atletas;
+        try {
+            atletas = equipeController.getAtletasEquipe(e);
+            for(int i = 0; i < atletas.size(); i++){
+                dtmi.addRow(new Object[]{
+                    atletas.get(i).getNome(),
+                    atletas.get(i).getPosicao()
+                });
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void botaoIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIncluirActionPerformed
-        // TODO add your handling code here:
+        
+        int numeroCamisa = Integer.parseInt(JOptionPane.showInputDialog(this, "Digite o número da camisa do jogador"));
+        for(int i = 0; i < tabelaInserir.getRowCount(); i++){
+            if(tabelaInserir.isRowSelected(i)){
+                dtmi.addRow((Vector) dtm.getDataVector().elementAt(i));
+                dtm.removeRow(i);
+                atletasInserir.add(atletasSemEquipe.get(i));
+                atletasInserir.get(i).setNumeroCamisa(numeroCamisa);
+            }               
+        }
     }//GEN-LAST:event_botaoIncluirActionPerformed
 
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        // TODO add your handling code here:
+        
+        for(int i = 0; i < tabelaInserido.getRowCount(); i++){
+            if(tabelaInserido.isRowSelected(i)){
+                dtm.addRow((Vector) dtmi.getDataVector().elementAt(i));
+                dtmi.removeRow(i);
+                atletasInserir.remove(atletasInserir.get(i));
+            }               
+        }
     }//GEN-LAST:event_botaoExcluirActionPerformed
+
+    private void caixaEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caixaEquipeActionPerformed
+        dtmi.setRowCount(0);
+        if(!caixaEquipe.getSelectedItem().toString().equals("Selecionar uma equipe")){
+            botaoIncluir.setEnabled(true);
+            botaoExcluir.setEnabled(true);
+            try {
+                String nomeEquipe = caixaEquipe.getSelectedItem().toString();
+                Equipe e = equipeController.procurarEquipeNome(nomeEquipe);
+                listarIntegrantesEquipe(e);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        else{
+            botaoIncluir.setEnabled(false);
+            botaoExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_caixaEquipeActionPerformed
+
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        for(int i = 0; i < atletasInserir.size(); i++){
+            try {
+                montarEquipeController.inserirAtletaEquipe(atletasInserir.get(i), 
+                        equipeController.procurarEquipeNome(caixaEquipe.getSelectedItem().toString()));
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        JOptionPane.showMessageDialog(this, "Time montado com sucesso");
+    }//GEN-LAST:event_botaoSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoIncluir;
+    private javax.swing.JButton botaoSalvar;
     private javax.swing.JComboBox<String> caixaEquipe;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel labelInseridos;
+    private javax.swing.JLabel labelInserir;
     private javax.swing.JLabel labelSelecionar;
     private javax.swing.JTable tabelaInserido;
     private javax.swing.JTable tabelaInserir;
