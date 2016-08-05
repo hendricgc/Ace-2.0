@@ -44,7 +44,12 @@ public class MontarEquipeController {
     
     /**
      * 
+     * @param comissao
+     * @param e
+     * @return retorna true se inseriu com sucesso o membro da comição a uma equipe e falso em caso de falha
+     * @throws SQLException 
      */
+
     public boolean inserirComissaoTime(Comissao comissao, Equipe e) throws SQLException{
         if(comissao != null && e != null){
             //if(dao.getComissaoDAO().inserirComissaoTime(comissao, e)){

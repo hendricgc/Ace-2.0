@@ -143,7 +143,7 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     /**
      * Compara o numero de pontos de entre duas
      * @param o
-     * @return  retorna  
+     * @return  retorna  a classificação
      */
     @Override
     public int compareTo(ClassificacaoEquipe o) {
