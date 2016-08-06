@@ -13,12 +13,12 @@ public class Comissao extends Pessoa {
 
     public Comissao(){}
     /**
-     * 
-     * @param nome
-     * @param dataNasc
-     * @param RG
-     * @param CPF
-     * @param cargo 
+     * metodo para criação de um membro da comissao
+     * @param nome nome do membro da comissao
+     * @param dataNasc data de nscimento
+     * @param RG RG do membro da comissao
+     * @param CPF CPF do membro da comissao
+     * @param cargo cargo na comissao 
      */
     public Comissao(String nome, Date dataNasc, String RG, String CPF,
                     String cargo){
@@ -27,7 +27,7 @@ public class Comissao extends Pessoa {
         this.cargo = cargo;
     }
     /**
-     * 
+     * metodo para obter o cargo
      * @return retorna o cargo 
      */
     public String getCargo() {
@@ -35,8 +35,8 @@ public class Comissao extends Pessoa {
     }
 
     /**
-     * 
-     * @param cargo 
+     * metodo para definir o cargo
+     * @param cargo cargo do membro da comissao
      */
     public void setCargo(String cargo) {
         this.cargo = cargo;

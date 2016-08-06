@@ -12,16 +12,28 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Hendric
+ * @author Hendric, Murillo
  */
 public class JogoController {
     
     protected DAOFactory dao = null;
     
+    /**
+     * 
+     * @param dao ponteiro pro banco de dados
+     */
     public JogoController(DAOFactory dao){
         this.dao = dao;
     }
     
+    /**
+     * Insere um jogo em um campeonato
+     * @param a objeto equipe mandante
+     * @param b objeto equipe visitante
+     * @param camp objeto campeonato
+     * @return true se o jogo foi inserido com sucesso e false caso contrario
+     * @throws SQLException exception
+     */
     public boolean inserirJogo(Equipe a, Equipe b, Campeonato camp) throws SQLException{
         if(a != null && b != null && camp != null){
             if(dao.getJogoCampeonatoDAO().inserirJogo(a, b, camp)){

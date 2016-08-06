@@ -20,15 +20,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     private int numJogos = 0;
     private int numSetsGanhos = 0;  
     /**
-     * 
-     * @param equipe 
+     * metodo para definir a classificaçao de uma equipe
+     * @param equipe objeto equipe
      */
     public ClassificacaoEquipe(Equipe equipe) {
         this.equipe = equipe;
     }
     
     /**
-     * 
+     * metodo para obter a posicao de uma equipe
      * @return retorna a posiçao de uma equipe em uma lista de classificação de um campeonato
      */
     public int getPosicaoEquipe() {
@@ -36,15 +36,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
-     * @param posicaoEquipe 
+     * metodo para definir a posicao de uma equipe
+     * @param posicaoEquipe  posicao da equipe
      */
     public void setPosicaoEquipe(int posicaoEquipe) {
         this.posicaoEquipe = posicaoEquipe;
     }
 
     /**
-     * 
+     * metodo para obter uma equipe
      * @return retorna uma Equipe
      */
     public Equipe getEquipe() {
@@ -52,15 +52,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
-     * @param equipe 
+     * metodo para definir uma equipe
+     * @param equipe objeto equipe
      */
     public void setEquipe(Equipe equipe) {
         this.equipe = equipe;
     }
 
     /**
-     * 
+     * metodo para obter o numero de pontos
      * @return retorna o numero de pontos de uma equipe
      */
     public int getNumPontos() {
@@ -68,15 +68,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
-     * @param numPontos 
+     * metodo para definir o numero de pontos
+     * @param numPontos numero de pontos
      */
     public void setNumPontos(int numPontos) {
         this.numPontos = numPontos;
     }
 
     /**
-     * 
+     * metodo paraobter o numero de vitorias de uma equipe
      * @return retorna o numero de vitorias de uma equipe 
      */
     public int getNumVitorias() {
@@ -84,15 +84,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
-     * @param numVitorias 
+     * metodo para definir o numero de vitorias
+     * @param numVitorias numero de vitorias
      */
     public void setNumVitorias(int numVitorias) {
         this.numVitorias = numVitorias;
     }
 
     /**
-     * 
+     * metodo para obter o numero de derrotas
      * @return retorna o numero de derrotas de uma equipe 
      */
     public int getNumDerrotas() {
@@ -101,15 +101,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
 
     
     /**
-     * 
-     * @param numDerrotas 
+     * metodo para definir o numero de derrotas
+     * @param numDerrotas numero de derrotas
      */
     public void setNumDerrotas(int numDerrotas) {
         this.numDerrotas = numDerrotas;
     }
     
     /**
-     * 
+     * metodo para obter o numero de jogos
      * @return retorna o numero de jogos de uma equipe
      */
     public int getNumJogos() {
@@ -117,15 +117,15 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
-     * @param numJogos 
+     * metodopara definir o numero de jogos
+     * @param numJogos numero de jogos
      */
     public void setNumJogos(int numJogos) {
         this.numJogos = numJogos;
     }
 
     /**
-     * 
+     * metodo para obter o numero de sets ganhos
      * @return retorna o numero de sets ganhos pela equipe
      */
     public int getNumSetsGanhos() {
@@ -133,8 +133,8 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
-     * @param numSetsGanhos 
+     * metodo para definir o numero de sets ganhos
+     * @param numSetsGanhos numero de sets ganhos
      */
     public void setNumSetsGanhos(int numSetsGanhos) {
         this.numSetsGanhos = numSetsGanhos;
@@ -142,7 +142,7 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
 
     /**
      * Compara o numero de pontos de entre duas
-     * @param o
+     * @param o objeto classificaçao
      * @return  retorna  a classificação
      */
     @Override
@@ -151,7 +151,7 @@ public class ClassificacaoEquipe implements Comparable<ClassificacaoEquipe>{
     }
 
     /**
-     * 
+     * metodo para conversoa para string
      * @return metodo toString
      */
     @Override

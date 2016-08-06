@@ -15,10 +15,10 @@ public class Set {
     private List<Ponto> informacoesPonto;
     
     /**
-     * 
-     * @param pontos_time_1
-     * @param Pontos_time_2
-     * @param id_set 
+     * metodo para criar um set
+     * @param pontos_time_1 pontos do time mandante
+     * @param Pontos_time_2 pontos do time visitante
+     * @param id_set id do set
      */
     public Set(int pontos_time_1,int Pontos_time_2, int id_set){
         informacoesPonto = new ArrayList<>();
@@ -28,7 +28,7 @@ public class Set {
     }
     
     /**
-     * 
+     * metodo para obter os pontos do time mandante
      * @return retorna o numero de pontos do time mandante
      */
     public int getPontosTimeMandante() {
@@ -36,15 +36,15 @@ public class Set {
     }
 
     /**
-     * 
-     * @param pontosTimeMandante 
+     * metodo para definir os pontos do time mandante
+     * @param pontosTimeMandante pontos do time mandante
      */
     public void setPontosTimeMandante(int pontosTimeMandante) {
         this.pontosTimeMandante = pontosTimeMandante;
     }
 
     /**
-     * 
+     * metodo prada obter os pontos do time visitante
      * @return retorna o numero de pontos do time visitante
      */
     public int getPontosTimeVisitante() {
@@ -52,8 +52,8 @@ public class Set {
     }
 
     /**
-     * 
-     * @param pontosTimeVisitante 
+     * metodo para definir os pontos do time visitante
+     * @param pontosTimeVisitante pontos do time visitante
      */
     public void setPontosTimeVisitante(int pontosTimeVisitante) {
         this.pontosTimeVisitante = pontosTimeVisitante;
@@ -61,7 +61,7 @@ public class Set {
     
 
     /**
-     * 
+     * metodo para obter o id do set
      * @return retorna o id do set
      */
     public int getIdSet() {
@@ -69,15 +69,15 @@ public class Set {
     }
 
     /**
-     * 
-     * @param idSet 
+     * metodo para definir o id do set
+     * @param idSet id do set
      */
     public void setIdSet(int idSet) {
         this.idSet = idSet;
     }
 
     /**
-     * 
+     * metodo para obter se o set ja acabou ou ainda esta acontecendo
      * @return retorna true se o set ja acabou
      */
     public boolean isFinalizado() {
@@ -85,15 +85,15 @@ public class Set {
     }
 
     /**
-     * 
-     * @param finalizado 
+     * metodo para definir que o set foi finalizado
+     * @param finalizado finalizado
      */
     public void setFinalizado(boolean finalizado) {
         this.finalizado = finalizado;
     }
 
     /**
-     * 
+     * metodo para obter as informações do ponto
      * @return retorna uma lista com as informações do ponto
      */
     public List<Ponto> getInformacoesPonto() {
@@ -101,15 +101,15 @@ public class Set {
     }
 
     /**
-     * 
-     * @param informacoesPonto 
+     * metodo para definir as informações od ponto
+     * @param informacoesPonto descriçao do ponto
      */
     public void setInformacoesPonto(List<Ponto> informacoesPonto) {
         this.informacoesPonto = informacoesPonto;
     }
 
     /**
-     * 
+     * metodo para conversao para string
      * @return metodo toString
      */
     @Override

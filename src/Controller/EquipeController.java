@@ -28,10 +28,10 @@ public class EquipeController extends Observable{
     }
     
     /**
-     * 
-     * @param a
+     *  Metodo para cadastrar uma equipe
+     * @param a objeto equipe
      * @return retorna true em caso de sucesso no cadastro da equipe e false em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public boolean cadastrarEquipe(Equipe a) throws SQLException{
         if(a != null){
@@ -45,9 +45,9 @@ public class EquipeController extends Observable{
     }
     
     /**
-     * 
-     * @returnretorna uma lista com todas as equipes cadastradas
-     * @throws SQLException 
+     * Metodo para listar todas as equipes 
+     * @return retorna uma lista com todas as equipes cadastradas
+     * @throws SQLException exception
      */
     public LinkedList<Equipe> listarTodasEquipes() throws SQLException{
         
@@ -63,10 +63,10 @@ public class EquipeController extends Observable{
     }
 
     /**
-     * 
-     * @param nomeEquipe
+     * Metodo para procurar uma equipe pelo nome
+     * @param nomeEquipe nome da equipe
      * @return retorna uma Equipe
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public Equipe procurarEquipeNome(String nomeEquipe) throws SQLException {
         
@@ -80,10 +80,10 @@ public class EquipeController extends Observable{
     }
     
     /**
-     * 
-     * @param e
+     * Metodo para listar os atletas de uma determinada equipe
+     * @param e objeto equipe
      * @return retorna uma lista com os atletas de uma equipe
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public LinkedList<Atleta> getAtletasEquipe(Equipe e) throws SQLException {
         
@@ -98,9 +98,9 @@ public class EquipeController extends Observable{
     }
     
     /**
-     * 
+     *  Metodo para listar os atletas nao associados a uma equipe
      * @return retorna uma lista com os atletas nao associados a uma equipe
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public LinkedList<Atleta> getAtletasSemEquipe() throws SQLException {
         
@@ -115,10 +115,10 @@ public class EquipeController extends Observable{
     }
     
     /**
-     * 
-     * @param e
+     * Metodo para conseguir o numero de atletas em uma equipe
+     * @param e objeto equipe
      * @return retorna a quantidade de atletas em uma equipe
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public int getQuantAletasEquipe(Equipe e) throws SQLException {
         if(e != null)

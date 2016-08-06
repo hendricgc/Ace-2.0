@@ -23,10 +23,10 @@ public class AtletaController extends Observable{
         this.dao = dao;
     }
     /**
-     * 
-     * @param a
+     * Método para cadastrar um atleta
+     * @param a objeto atleta
      * @return retorna true se cadastroucom sucesso e false em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public boolean cadastrarAtleta(Atleta a) throws SQLException{
         if(a != null){
@@ -40,10 +40,10 @@ public class AtletaController extends Observable{
     }
     
     /**
-     * 
-     * @param a
+     * Metodo para atualizar um atleta
+     * @param a objeto atleta
      * @return retorna true em caso de sucesso na atualizaçao do atleta e false em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public boolean atualizarAtleta(Atleta a) throws SQLException{
         if(a != null){
@@ -57,9 +57,9 @@ public class AtletaController extends Observable{
     }
     
     /**
-     * 
-     * @return retora uma lista com todos os atletas
-     * @throws SQLException 
+     * Metodo para listar todos os atletas
+     * @return retorna uma lista com todos os atletas
+     * @throws SQLException exception
      */
     public LinkedList<Atleta> consultarTodosAtletas() throws SQLException{
 
@@ -74,8 +74,8 @@ public class AtletaController extends Observable{
     }
     
     /**
-     * 
-     * @param id
+     * Metodo para buscar um atleta atraves do seu ID
+     * @param id id atleta
      * @return retorna um objeto atleta 
      */
     public Atleta buscarAtletaID(int id){

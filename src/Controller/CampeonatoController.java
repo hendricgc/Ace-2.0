@@ -20,17 +20,17 @@ public class CampeonatoController extends Observable{
     protected DAOFactory dao = null;
     /**
      * 
-     * @param dao 
+     * @param dao ponteiro pro banco de dados
      */
     public CampeonatoController(DAOFactory dao){
         this.dao = dao;
     }
     
     /**
-     * 
-     * @param campeonato
+     * Metodo para cadastrar um campeonato
+     * @param campeonato objeto campeonato
      * @return retorna true se o campeonato foi cadastrado com sucesso e false em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public boolean cadastrarCampeonato(Campeonato campeonato) throws SQLException{
         if(campeonato != null){
@@ -42,7 +42,11 @@ public class CampeonatoController extends Observable{
         }
         return false;
     }
-    
+    /**
+     * Metodo para listar todos os campeonatos
+     * @return retorna lista com todos os campeonatos
+     * @throws SQLException exception
+     */
     public LinkedList<Campeonato> listarTodosCampeonatos() throws SQLException{
         LinkedList<Campeonato> campeonatos;
         

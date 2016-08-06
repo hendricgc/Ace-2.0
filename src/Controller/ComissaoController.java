@@ -19,16 +19,16 @@ public class ComissaoController extends Observable{
     protected DAOFactory dao = null;
     /**
      * 
-     * @param dao 
+     * @param dao ponteiro pro banco de dados
      */
     public ComissaoController(DAOFactory dao){
         this.dao = dao;
     }
     /**
-     * 
-     * @param a
+     * Metodo para cadastrar um membro de comissao
+     * @param a Objeto comissao
      * @return retorna true em caso de sucesso no cadstro de comissao e false em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public boolean cadastrarComissao(Comissao a) throws SQLException{
         if(a != null){

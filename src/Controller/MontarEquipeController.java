@@ -20,18 +20,18 @@ public class MontarEquipeController {
     protected DAOFactory dao = null;
     /**
      * 
-     * @param dao 
+     * @param dao ponteiro pro banco de dados
      */
     public MontarEquipeController(DAOFactory dao) {
         this.dao = dao;
     }
     
     /**
-     * 
-     * @param a
-     * @param e
+     *  Insere um atleta na equipe
+     * @param a objeto atleta
+     * @param e objeto equipe
      * @return retorna true se o atleta fo iassociado a equipe com sucesso e false em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
     public boolean inserirAtletaEquipe(Atleta a, Equipe e) throws SQLException{
             if(a != null && e != null){
@@ -43,11 +43,11 @@ public class MontarEquipeController {
     }
     
     /**
-     * 
-     * @param comissao
-     * @param e
+     *  insere um membro da comissao em uma equipe
+     * @param comissao objeto comissao
+     * @param e objeto equipe
      * @return retorna true se inseriu com sucesso o membro da comição a uma equipe e falso em caso de falha
-     * @throws SQLException 
+     * @throws SQLException exception
      */
 
     public boolean inserirComissaoTime(Comissao comissao, Equipe e) throws SQLException{
@@ -59,6 +59,12 @@ public class MontarEquipeController {
             return false;
      }
     
+    /**
+     * remove atleta de uma equipe
+     * @param a objeto atleta
+     * @return retorna true se removeu o atleta da equipe com sucesso e falso caso contrario
+     * @throws SQLException exception
+     */
     public boolean removerAtletaEquipe(Atleta a) throws SQLException{
         
         return dao.getAtletaEquipeDAO().removerAtletaEquipe(a);
